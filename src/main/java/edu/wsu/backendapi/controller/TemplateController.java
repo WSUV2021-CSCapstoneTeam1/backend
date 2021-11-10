@@ -4,9 +4,13 @@ import edu.wsu.backendapi.service.TemplateService;
 import static edu.wsu.backendapi.service.TemplateService.printInfo;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+
 import org.apache.http.HttpResponse;
+import org.json.JSONObject;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,12 +20,12 @@ public class TemplateController {
 
     @GET
     @Path("/get/all")
-    @Produces("text/plain")
-    public String templateGetAll() {
+    @Produces("application/json")
+    public Object templateGetAll() {
         TemplateService tempServ = new TemplateService();
         try {
             HttpResponse output = tempServ.conn();
-            return printInfo(output, true);
+            return printInfo(output,true);
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
