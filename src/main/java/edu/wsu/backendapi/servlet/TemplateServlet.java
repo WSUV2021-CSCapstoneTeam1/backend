@@ -60,13 +60,13 @@ public class TemplateServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
+        response.setContentType("application/json");
 
         TemplateServlet tempCon = new TemplateServlet();
         try {
             HttpResponse output = tempCon.conn();
             PrintWriter out = response.getWriter();
-            out.println(printInfo(output, false));
+            out.println(printInfo(output, true));
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
