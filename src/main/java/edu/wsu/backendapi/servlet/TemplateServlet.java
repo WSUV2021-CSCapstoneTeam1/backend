@@ -7,7 +7,9 @@ import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+import edu.wsu.backendapi.siteflow.GetCredentials;
 import edu.wsu.backendapi.siteflow.SiteFlow;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -23,14 +25,21 @@ import javax.servlet.http.HttpServletResponse;
 public class TemplateServlet extends HttpServlet {
 
     //Access Credentials
-    private static String key = System.getenv("SITEFLOW_KEY");
-    private static String secret = System.getenv("SITEFLOW_SECRET");
-    private static String algorithm = "HmacSHA1";
-    private static SiteFlow siteFlow;
+//    private static String key = System.getenv("SITEFLOW_KEY");
+//    private static String secret = System.getenv("SITEFLOW_SECRET");
+//    private static String algorithm = "HmacSHA1";
+//    private static SiteFlow siteFlow;
 
     public HttpResponse conn() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-        siteFlow = new SiteFlow(key, secret, algorithm);
-        printInfo(siteFlow.GetAllTemplates(), true);
+
+        GetCredentials sfCreds = new GetCredentials();
+        String[] cred = sfCreds.getSiteFlowCredentials();
+        String key = cred[0];
+        String secret = cred[1];
+        String algorithm = cred[2];
+
+        SiteFlow siteFlow = new SiteFlow(key, secret, algorithm);
+        //printInfo(siteFlow.GetAllTemplates(), true);
         HttpResponse info = siteFlow.GetAllTemplates();
         return info;
     }

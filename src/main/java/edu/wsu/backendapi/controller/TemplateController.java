@@ -1,20 +1,12 @@
 package edu.wsu.backendapi.controller;
 
-// © Copyright 2016 HP Development Company, L.P.
-// SPDX-License-Identifier: MIT
+import edu.wsu.backendapi.service.TemplateService;
+import static edu.wsu.backendapi.service.TemplateService.printInfo;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-
-import edu.wsu.backendapi.siteflow.SiteFlow;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -26,6 +18,18 @@ public class TemplateController {
     @Path("/get/all")
     @Produces("text/plain")
     public String templateGetAll() {
-        return "Hello, World!";
+        TemplateService tempServ = new TemplateService();
+        try {
+            HttpResponse output = tempServ.conn();
+            return printInfo(output, true);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "failed to return";
     }
 }
