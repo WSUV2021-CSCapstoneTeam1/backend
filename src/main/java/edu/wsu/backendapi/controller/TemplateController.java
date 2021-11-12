@@ -4,12 +4,10 @@ import edu.wsu.backendapi.service.TemplateService;
 import static edu.wsu.backendapi.service.TemplateService.printInfo;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.HttpResponse;
-import org.json.JSONObject;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,11 +24,7 @@ public class TemplateController {
         try {
             HttpResponse output = tempServ.conn();
             return printInfo(output,true);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
         }
 

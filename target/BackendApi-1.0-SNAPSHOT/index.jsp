@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>JSP - Backend API</title>
 </head>
 <body>
 <p>Testing Rest Calls:</p>
-<p><a href="getTemplateAll">GET Templates</a></p>
+<p><a href="webapi/template/get/all">GET API - Templates (all)</a></p>
+<p><a href="getTemplateAll">Servlet Page - Templates (display all)</a></p>
 </body>
 </html>
