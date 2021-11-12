@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+import edu.wsu.backendapi.dao.DBConnect;
 import edu.wsu.backendapi.siteflow.GetCredentials;
 import edu.wsu.backendapi.siteflow.SiteFlow;
 
@@ -76,6 +77,8 @@ public class TemplateServlet extends HttpServlet {
             HttpResponse output = tempCon.conn();
             PrintWriter out = response.getWriter();
             out.println(printInfo(output, true));
+            DBConnect doConn = new DBConnect();
+            doConn.getRemoteConnection();
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
