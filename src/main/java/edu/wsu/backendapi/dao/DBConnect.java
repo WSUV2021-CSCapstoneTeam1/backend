@@ -10,7 +10,7 @@ public class DBConnect {
         if (System.getenv("RDS_HOSTNAME") != null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                String dbName = System.getenv("RDS_DB_NAME");
+                String dbName = "test";
                 String userName = System.getenv("RDS_USERNAME");
                 String password = System.getenv("RDS_PASSWORD");
                 String hostname = System.getenv("RDS_HOSTNAME");

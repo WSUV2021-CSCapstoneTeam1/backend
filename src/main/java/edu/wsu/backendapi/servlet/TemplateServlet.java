@@ -8,7 +8,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 import edu.wsu.backendapi.dao.DBConnect;
-import edu.wsu.backendapi.siteflow.GetCredentials;
+import edu.wsu.backendapi.dao.TemplateDao;
+import edu.wsu.backendapi.siteflow.GetSFCredentials;
 import edu.wsu.backendapi.siteflow.SiteFlow;
 
 import org.apache.http.HttpEntity;
@@ -33,7 +34,7 @@ public class TemplateServlet extends HttpServlet {
 
     public HttpResponse conn() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
 
-        GetCredentials sfCreds = new GetCredentials();
+        GetSFCredentials sfCreds = new GetSFCredentials();
         String[] cred = sfCreds.getSiteFlowCredentials();
         String key = cred[0];
         String secret = cred[1];
@@ -77,8 +78,8 @@ public class TemplateServlet extends HttpServlet {
             HttpResponse output = tempCon.conn();
             PrintWriter out = response.getWriter();
             out.println(printInfo(output, true));
-            DBConnect doConn = new DBConnect();
-            doConn.getRemoteConnection();
+            TemplateDao doConn = new TemplateDao();
+            System.out.println(doConn.addTemplate("I added this"));
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {

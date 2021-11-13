@@ -1,0 +1,26 @@
+package edu.wsu.backendapi.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class TemplateDao {
+    public TemplateDao() {
+        GetDBCredentials rdsCreds = new GetDBCredentials();
+        String[] creds = rdsCreds.getRDSCredentials();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String jdbcUrl = "jdbc:mysql://" + creds[1] + ":3306/test?user=admin&password=" + creds[0];
+            Connection con = DriverManager.getConnection(jdbcUrl);
+            System.out.println("Remote connection successful.");
+        }
+        catch (ClassNotFoundException e) { System.out.println(e.toString());}
+        catch (SQLException e) { System.out.println(e.toString());}
+    }
+
+    public String addTemplate(String newTemplate) {
+        String build = newTemplate + " was added";
+        return build;
+    }
+}

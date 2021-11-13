@@ -1,6 +1,6 @@
 package edu.wsu.backendapi.service;
 
-import edu.wsu.backendapi.siteflow.GetCredentials;
+import edu.wsu.backendapi.siteflow.GetSFCredentials;
 import edu.wsu.backendapi.siteflow.SiteFlow;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,7 +18,7 @@ public class TemplateService {
 
     public HttpResponse conn() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
 
-        GetCredentials sfCreds = new GetCredentials();
+        GetSFCredentials sfCreds = new GetSFCredentials();
         String[] cred = sfCreds.getSiteFlowCredentials();
         String key = cred[0];
         String secret = cred[1];
