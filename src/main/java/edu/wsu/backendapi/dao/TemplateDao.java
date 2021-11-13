@@ -1,25 +1,21 @@
 package edu.wsu.backendapi.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class TemplateDao {
-    public TemplateDao() {
-        GetDBCredentials rdsCreds = new GetDBCredentials();
-        String[] creds = rdsCreds.getRDSCredentials();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String jdbcUrl = "jdbc:mysql://" + creds[1] + ":3306/test?user=admin&password=" + creds[0];
-            Connection con = DriverManager.getConnection(jdbcUrl);
-            System.out.println("Remote connection successful.");
-        }
-        catch (ClassNotFoundException e) { System.out.println(e.toString());}
-        catch (SQLException e) { System.out.println(e.toString());}
+    public TemplateDao() {
     }
 
-    public String addTemplate(String newTemplate) {
+    public String addTemplate(String newTemplate) throws SQLException {
+        DBConn conn = new DBConn();
+        Statement stmt = conn.makeConnection().createStatement();
+        String sqlStr = "INSERT INTO test1 VALUES (\'" + newTemplate + "\');";
+        stmt.executeUpdate(sqlStr);
+        //System.out.println(rset);
         String build = newTemplate + " was added";
         return build;
     }

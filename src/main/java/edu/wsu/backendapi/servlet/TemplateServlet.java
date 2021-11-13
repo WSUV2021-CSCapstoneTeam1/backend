@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
-import edu.wsu.backendapi.dao.DBConnect;
 import edu.wsu.backendapi.dao.TemplateDao;
 import edu.wsu.backendapi.siteflow.GetSFCredentials;
 import edu.wsu.backendapi.siteflow.SiteFlow;
@@ -84,6 +84,8 @@ public class TemplateServlet extends HttpServlet {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
     }
