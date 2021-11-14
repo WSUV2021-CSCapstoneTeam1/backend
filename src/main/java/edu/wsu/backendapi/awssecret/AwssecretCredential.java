@@ -17,6 +17,10 @@ public class AwssecretCredential {
             input = System.getenv("AWS_SECRET_SITEFLOW_KEY_SECRETNAME");
         } else if (passSecret.equals("SFsecret")) {
             input = System.getenv("AWS_SECRET_SITEFLOW_SECRET_SECRETNAME");
+        } else if (passSecret.equals("RDSHostName")) {
+            input = System.getenv("AWS_SECRET_RDS_HOSTNAME_SECRETNAME");
+        } else if (passSecret.equals("RDSPassword")) {
+            input = System.getenv("AWS_SECRET_RDS_PASSWORD_SECRETNAME");
         } else {
             input = "FAIL";
             return input;
