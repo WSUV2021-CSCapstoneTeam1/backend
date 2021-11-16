@@ -7,11 +7,10 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+import org.json.JSONObject;
 import org.apache.http.HttpResponse;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
 @Path("/template")
 public class TemplateController {
@@ -29,5 +28,15 @@ public class TemplateController {
         }
 
         return "failed to return";
+    }
+
+    @POST
+    @Path("post/db")
+    @Consumes("text/plain")
+    @Produces("text/plain")
+    public String templatePostDb(String tempJson) {
+        JSONObject tempJsonRet = new JSONObject(tempJson);
+        System.out.println(tempJsonRet);
+        return "received";
     }
 }
