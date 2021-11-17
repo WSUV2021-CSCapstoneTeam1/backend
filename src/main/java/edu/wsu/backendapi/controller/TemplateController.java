@@ -22,7 +22,7 @@ public class TemplateController {
 
     @GET
     @Path("/get/all")
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public Object templateGetAll() {
         TemplateService tempServ = new TemplateService();
         try {
@@ -36,8 +36,8 @@ public class TemplateController {
     }
 
     @GET
-    @Path("/get/all/rds")
-    @Produces("application/json")
+    @Path("/rds/get/all")
+    @Produces(MediaType.APPLICATION_JSON)
     public Object templateGetAllRds() {
         TemplateDao tempGetRds = new TemplateDao();
         try {
@@ -45,14 +45,14 @@ public class TemplateController {
         } catch ( SQLException e) {
             e.printStackTrace();
         }
-        JSONArray nope = new JSONArray();
-        return nope;
+        //JSONObject nope = new JSONObject();
+        return "{status:400}";
     }
 
     @POST
     @Path("post/db")
-    @Consumes("text/plain")
-    @Produces("text/plain")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String templatePostDb(String tempJson) {
         JSONObject tempJsonRet = new JSONObject(tempJson);
         System.out.println(tempJsonRet);
