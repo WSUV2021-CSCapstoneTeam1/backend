@@ -23,32 +23,43 @@ public class TemplateDao {
         return build;
     }
 
-    public JSONArray getTemplateAllRds() throws SQLException {
+    public String getTemplateAllRds() throws SQLException {
         DBConn conn = new DBConn();
         Statement stmt = conn.makeConnection().createStatement();
         String sqlStr = "SELECT * FROM template;";
         ResultSet resultSet = stmt.executeQuery(sqlStr);
+        String retString = "{ \'size\':" + resultSet.getFetchSize() + ", \'data\': [";
 //        System.out.println(resultSet);
-//        while (resultSet.next()) {
+        while (resultSet.next()) {
+            retString += "{";
+            retString += "\'id\':" + resultSet.getInt("id") + ",";
+            retString += "\'accountId\':\'" + resultSet.getString("accountId") + "\',";
+            retString += "\'active\':" + resultSet.getBoolean("active") + ",";
+            retString += "\'name\':\'" + resultSet.getString("name") + "\',";
+            retString += "\'type\':\'" + resultSet.getString("type") + "\'";
+            retString += "}";
 //            System.out.println("accountId: " + resultSet.getString("accountId"));
 //            System.out.println("active: " + resultSet.getBoolean("active"));
 //            System.out.println("name: " + resultSet.getString("name"));
 //            System.out.println("type: " + resultSet.getString("type"));
-//
-//        }
-        JSONArray jsonArray = new JSONArray();
-        while (resultSet.next()) {
-            JSONObject obj = new JSONObject();
-            obj.put("accountId", resultSet.getString("accountId"));
-            obj.put("active", resultSet.getBoolean("active"));
-            obj.put("name", resultSet.getString("name"));
-            obj.put("type", resultSet.getString("type"));
-
-            jsonArray.put(obj);
         }
-        //String returnSet = rset.toString();
-        //JSONObject returnSet = new JSONObject(rset);
-        System.out.println(jsonArray);
-        return jsonArray;
+        retString += "]}";
+        System.out.println(retString);
+//        JSONArray jsonArray = new JSONArray();
+//        while (resultSet.next()) {
+//            JSONObject obj = new JSONObject();
+//            obj.put("accountId", resultSet.getString("accountId"));
+//            obj.put("active", resultSet.getBoolean("active"));
+//            obj.put("name", resultSet.getString("name"));
+//            obj.put("type", resultSet.getString("type"));
+//
+//            jsonArray.put(obj);
+//        }
+//        //String returnSet = rset.toString();
+//        //JSONObject returnSet = new JSONObject(rset);
+//        System.out.println(jsonArray);
+        JSONObject retStrObj = new JSONObject(retString);
+
+        return retStrObj.toString();
     }
 }
