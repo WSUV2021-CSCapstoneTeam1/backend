@@ -10,7 +10,7 @@ public class DBConn {
     public Connection makeConnection() {
         GetDBCredentials rdsCreds = new GetDBCredentials();
         String[] creds = rdsCreds.getRDSCredentials();
-        String jdbcUrl = "jdbc:mysql://" + creds[1] + ":3306/test?user=admin&password=" + creds[0];
+        String jdbcUrl = "jdbc:mysql://" + creds[1] + ":3306/backend?user=admin&password=" + creds[0];
 
         Connection con = null;
 
