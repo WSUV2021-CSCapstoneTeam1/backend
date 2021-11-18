@@ -12,9 +12,11 @@ public class TemplateDao {
     }
 
     public String addTemplate(JSONObject tempAdd) throws SQLException {
+        //System.out.println(tempAdd.getString("accountId"));
+        //System.out.println(tempAdd.getBoolean("active"));
         DBConn conn = new DBConn();
         Statement stmt = conn.makeConnection().createStatement();
-        String sqlStr = "INSERT INTO template (accountId,active,globalRead,globalResourceName,name,lookup,type,text,extension,contentType) " +
+        String sqlStr = "INSERT INTO template (accountId, active, globalRead, globalResourceName, name, lookup, type, text, extension, contentType) " +
                 "VALUES (" +
                 "\'" + tempAdd.getString("accountId") + "\'," +
                 tempAdd.getBoolean("active") + "," +
