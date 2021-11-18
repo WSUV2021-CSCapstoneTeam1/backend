@@ -78,14 +78,10 @@ public class TemplateServlet extends HttpServlet {
             HttpResponse output = tempCon.conn();
             PrintWriter out = response.getWriter();
             out.println(printInfo(output, true));
-            TemplateDao doConn = new TemplateDao();
-            System.out.println(doConn.addTemplate("I added this"));
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
     }
