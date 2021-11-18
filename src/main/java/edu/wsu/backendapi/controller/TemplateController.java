@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 public class TemplateController {
 
     @GET
-    @Path("/get/all")
+    @Path("/siteflow/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Object templateGetAll() {
         TemplateService tempServ = new TemplateService();
