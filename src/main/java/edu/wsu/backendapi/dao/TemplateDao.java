@@ -1,9 +1,7 @@
 package edu.wsu.backendapi.dao;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,14 +11,24 @@ public class TemplateDao {
     public TemplateDao() {
     }
 
-    public String addTemplate(String newTemplate) throws SQLException {
+    public String addTemplate(JSONObject tempAdd) throws SQLException {
         DBConn conn = new DBConn();
         Statement stmt = conn.makeConnection().createStatement();
-        String sqlStr = "INSERT INTO test1 VALUES (\'" + newTemplate + "\');";
+        String sqlStr = "INSERT INTO template (accountId,active,globalRead,globalResourceName,name,lookup,type,text,extension,contentType) " +
+                "VALUES (" +
+                "\'" + tempAdd.getString("accountId") + "\'," +
+                tempAdd.getBoolean("active") + "," +
+                tempAdd.getBoolean("globalRead") + "," +
+                "\'" + tempAdd.getString("globalResourceName") + "\'," +
+                "\'" + tempAdd.getString("name") + "\'," +
+                "\'" + tempAdd.getString("lookup") + "\'," +
+                "\'" + tempAdd.getString("type") + "\'," +
+                "\'" + tempAdd.getString("text") + "\'," +
+                "\'" + tempAdd.getString("extension") + "\'," +
+                "\'" + tempAdd.getString("contentType") + "\'" +
+                ");";
         stmt.executeUpdate(sqlStr);
-        //System.out.println(rset);
-        String build = newTemplate + " was added";
-        return build;
+        return "new template added";
     }
 
     public String getTemplateAllRds() throws SQLException {
@@ -28,38 +36,31 @@ public class TemplateDao {
         Statement stmt = conn.makeConnection().createStatement();
         String sqlStr = "SELECT * FROM template;";
         ResultSet resultSet = stmt.executeQuery(sqlStr);
-        String retString = "{ \'size\':" + resultSet.getFetchSize() + ", \'data\': [";
-//        System.out.println(resultSet);
+        int pages = -1;
+        int count = 0;
+        String retString = "{ \'pages\':" + pages + ",\'data\': [";
         while (resultSet.next()) {
+            if (count != 0) { retString += ","; }
             retString += "{";
             retString += "\'id\':" + resultSet.getInt("id") + ",";
             retString += "\'accountId\':\'" + resultSet.getString("accountId") + "\',";
             retString += "\'active\':" + resultSet.getBoolean("active") + ",";
+            retString += "\'globalRead\':" + resultSet.getBoolean("globalRead") + ",";
+            retString += "\'globalResourceName\':\'" + resultSet.getString("globalResourceName") + "\',";
             retString += "\'name\':\'" + resultSet.getString("name") + "\',";
-            retString += "\'type\':\'" + resultSet.getString("type") + "\'";
+            retString += "\'lookup\':\'" + resultSet.getString("lookup") + "\',";
+            retString += "\'type\':\'" + resultSet.getString("type") + "\',";
+            retString += "\'extension\':\'" + resultSet.getString("extension") + "\',";
+            retString += "\'contentType\':\'" + resultSet.getString("contentType") + "\'";
             retString += "}";
-//            System.out.println("accountId: " + resultSet.getString("accountId"));
-//            System.out.println("active: " + resultSet.getBoolean("active"));
-//            System.out.println("name: " + resultSet.getString("name"));
-//            System.out.println("type: " + resultSet.getString("type"));
+            count += 1;
         }
-        retString += "]}";
-        System.out.println(retString);
-//        JSONArray jsonArray = new JSONArray();
-//        while (resultSet.next()) {
-//            JSONObject obj = new JSONObject();
-//            obj.put("accountId", resultSet.getString("accountId"));
-//            obj.put("active", resultSet.getBoolean("active"));
-//            obj.put("name", resultSet.getString("name"));
-//            obj.put("type", resultSet.getString("type"));
-//
-//            jsonArray.put(obj);
-//        }
-//        //String returnSet = rset.toString();
-//        //JSONObject returnSet = new JSONObject(rset);
-//        System.out.println(jsonArray);
+        retString += "],";
+        retString += "\'count\':" + count;
+        retString += "}";
+        //System.out.println(retString);
         JSONObject retStrObj = new JSONObject(retString);
 
-        return retStrObj.toString();
+        return retStrObj.toString(4);
     }
 }

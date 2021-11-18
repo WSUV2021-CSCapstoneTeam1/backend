@@ -50,12 +50,14 @@ public class TemplateController {
     }
 
     @POST
-    @Path("post/db")
+    @Path("/rds/post")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String templatePostDb(String tempJson) {
-        JSONObject tempJsonRet = new JSONObject(tempJson);
-        System.out.println(tempJsonRet);
+    public String templatePostDb(String jsonIn) throws SQLException {
+        JSONObject jsonRet = new JSONObject(jsonIn);
+        System.out.println(jsonRet.toString(4));
+        TemplateDao addTempDao = new TemplateDao();
+        addTempDao.addTemplate(jsonRet);
         return "received";
     }
 }
