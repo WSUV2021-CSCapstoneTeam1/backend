@@ -65,4 +65,37 @@ public class TemplateDao {
 
         return retStrObj.toString(4);
     }
+
+    public String getTemplateByIdRds(int idIn) throws SQLException {
+        DBConn conn = new DBConn();
+        Statement stmt = conn.makeConnection().createStatement();
+        String sqlStr = "SELECT * FROM template WHERE id=" + idIn + ";";
+        ResultSet resultSet = stmt.executeQuery(sqlStr);
+        int pages = -1;
+        int count = 0;
+        String retString = "{ \'pages\':" + pages + ",\'data\': [";
+        while (resultSet.next()) {
+            if (count != 0) { retString += ","; }
+            retString += "{";
+            retString += "\'id\':" + resultSet.getInt("id") + ",";
+            retString += "\'accountId\':\'" + resultSet.getString("accountId") + "\',";
+            retString += "\'active\':" + resultSet.getBoolean("active") + ",";
+            retString += "\'globalRead\':" + resultSet.getBoolean("globalRead") + ",";
+            retString += "\'globalResourceName\':\'" + resultSet.getString("globalResourceName") + "\',";
+            retString += "\'name\':\'" + resultSet.getString("name") + "\',";
+            retString += "\'lookup\':\'" + resultSet.getString("lookup") + "\',";
+            retString += "\'type\':\'" + resultSet.getString("type") + "\',";
+            retString += "\'extension\':\'" + resultSet.getString("extension") + "\',";
+            retString += "\'contentType\':\'" + resultSet.getString("contentType") + "\'";
+            retString += "}";
+            count += 1;
+        }
+        retString += "],";
+        retString += "\'count\':" + count;
+        retString += "}";
+        //System.out.println(retString);
+        JSONObject retStrObj = new JSONObject(retString);
+
+        return retStrObj.toString(4);
+    }
 }
