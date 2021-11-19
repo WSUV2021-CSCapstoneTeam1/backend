@@ -7,10 +7,8 @@ import static edu.wsu.backendapi.service.TemplateService.printInfo;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.apache.http.HttpResponse;
 
@@ -32,7 +30,9 @@ public class TemplateController {
             e.printStackTrace();
         }
 
-        return "failed to return";
+        JSONObject obj = new JSONObject();
+        obj.put("status", 400);
+        return obj.toString(4);
     }
 
     @GET
@@ -45,8 +45,26 @@ public class TemplateController {
         } catch ( SQLException e) {
             e.printStackTrace();
         }
-        //JSONObject nope = new JSONObject();
-        return "{status:400}";
+
+        JSONObject obj = new JSONObject();
+        obj.put("status", 400);
+        return obj.toString(4);
+    }
+
+    @GET
+    @Path("/rds/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object templateGetById(@QueryParam("id") int id) {
+        TemplateDao tempGetRds = new TemplateDao();
+        try {
+            return tempGetRds.getTemplateByIdRds(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject obj = new JSONObject();
+        obj.put("id",id);
+        return obj.toString(4);
     }
 
     @POST
