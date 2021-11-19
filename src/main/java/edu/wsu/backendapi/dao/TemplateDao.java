@@ -33,6 +33,27 @@ public class TemplateDao {
         return "new template added";
     }
 
+    public String updateTemplate(JSONObject tempAdd, int idIn) throws SQLException {
+        //System.out.println(tempAdd.getString("accountId"));
+        //System.out.println(tempAdd.getBoolean("active"));
+        DBConn conn = new DBConn();
+        Statement stmt = conn.makeConnection().createStatement();
+        String sqlStr = "UPDATE template SET " +
+                "accountId=\'" + tempAdd.getString("accountId") + "\'," +
+                "active=" + tempAdd.getBoolean("active") + "," +
+                "globalRead=" + tempAdd.getBoolean("globalRead") + "," +
+                "globalResourceName=\'" + tempAdd.getString("globalResourceName") + "\'," +
+                "name=\'" + tempAdd.getString("name") + "\'," +
+                "lookup=\'" + tempAdd.getString("lookup") + "\'," +
+                "type=\'" + tempAdd.getString("type") + "\'," +
+                "text=\'" + tempAdd.getString("text") + "\'," +
+                "extension=\'" + tempAdd.getString("extension") + "\'," +
+                "contentType=\'" + tempAdd.getString("contentType") + "\'" +
+                "WHERE id=" + idIn + ";";
+        stmt.executeUpdate(sqlStr);
+        return "template updated";
+    }
+
     public String getTemplateAllRds() throws SQLException {
         DBConn conn = new DBConn();
         Statement stmt = conn.makeConnection().createStatement();

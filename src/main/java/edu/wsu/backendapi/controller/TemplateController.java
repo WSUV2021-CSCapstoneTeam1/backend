@@ -78,4 +78,16 @@ public class TemplateController {
         addTempDao.addTemplate(jsonRet);
         return "received";
     }
+
+    @POST
+    @Path("/rds/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String templateUpdateDb(String jsonIn, @QueryParam("id") int idIn) throws SQLException {
+        JSONObject jsonRet = new JSONObject(jsonIn);
+        System.out.println(jsonRet.toString(4));
+        TemplateDao addTempDao = new TemplateDao();
+        addTempDao.updateTemplate(jsonRet, idIn);
+        return "received";
+    }
 }
