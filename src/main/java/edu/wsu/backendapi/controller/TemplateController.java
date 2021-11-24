@@ -67,6 +67,22 @@ public class TemplateController {
         return obj.toString(4);
     }
 
+    @GET
+    @Path("/rds/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object templateDeleteById(@QueryParam("id") int id) {
+        TemplateDao tempDeleteRds = new TemplateDao();
+        try {
+            tempDeleteRds.deleteTemplateByIdRds(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject obj = new JSONObject();
+        obj.put("Success",true);
+        return obj.toString(4);
+    }
+
     @POST
     @Path("/rds/post")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -54,6 +54,14 @@ public class TemplateDao {
         return "template updated";
     }
 
+    public String deleteTemplateByIdRds(int idIn) throws SQLException {
+        DBConn conn = new DBConn();
+        Statement stmt = conn.makeConnection().createStatement();
+        String sqlStr = "DELETE FROM template WHERE id=" + idIn + ";";
+        stmt.executeUpdate(sqlStr);
+        return "template deleted";
+    }
+
     public String getTemplateAllRds() throws SQLException {
         DBConn conn = new DBConn();
         Statement stmt = conn.makeConnection().createStatement();
