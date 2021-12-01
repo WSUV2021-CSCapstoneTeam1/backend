@@ -14,6 +14,7 @@ import org.apache.http.HttpResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/template")
 public class TemplateController {
@@ -64,23 +65,27 @@ public class TemplateController {
 
         JSONObject obj = new JSONObject();
         obj.put("id",id);
+        obj.put("Error Message","Not Found");
         return obj.toString(4);
     }
 
-    @GET
+    @DELETE
     @Path("/rds/delete")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object templateDeleteById(@QueryParam("id") int id) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response templateDeleteById(@QueryParam("id") int id) {
+        int retVal = 0;
         TemplateDao tempDeleteRds = new TemplateDao();
         try {
-            tempDeleteRds.deleteTemplateByIdRds(id);
+            retVal = tempDeleteRds.deleteTemplateByIdRds(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        JSONObject obj = new JSONObject();
-        obj.put("Success",true);
-        return obj.toString(4);
+        if (retVal == 1) {
+            return Response.status(Response.Status.OK).build();
+        } else {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
     }
 
     @POST
