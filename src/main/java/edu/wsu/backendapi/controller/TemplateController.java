@@ -14,6 +14,7 @@ import org.apache.http.HttpResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/template")
 public class TemplateController {
@@ -64,34 +65,42 @@ public class TemplateController {
 
         JSONObject obj = new JSONObject();
         obj.put("id",id);
+        obj.put("Error Message","Not Found");
         return obj.toString(4);
     }
 
-    @GET
+    @DELETE
     @Path("/rds/delete")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object templateDeleteById(@QueryParam("id") int id) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response templateDeleteById(@QueryParam("id") int id) {
+        int retVal = 0;
         TemplateDao tempDeleteRds = new TemplateDao();
         try {
-            tempDeleteRds.deleteTemplateByIdRds(id);
+            retVal = tempDeleteRds.deleteTemplateByIdRds(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        JSONObject obj = new JSONObject();
-        obj.put("Success",true);
-        return obj.toString(4);
+        if (retVal == 1) {
+            return Response.status(Response.Status.OK).build();
+        } else {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
     }
 
     @POST
     @Path("/rds/post")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String templatePostDb(String jsonIn) throws SQLException {
+    public String templatePostDb(String jsonIn) {
         JSONObject jsonRet = new JSONObject(jsonIn);
         System.out.println(jsonRet.toString(4));
         TemplateDao addTempDao = new TemplateDao();
-        addTempDao.addTemplate(jsonRet);
+        try {
+            addTempDao.addTemplate(jsonRet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return "received";
     }
 
@@ -99,11 +108,15 @@ public class TemplateController {
     @Path("/rds/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String templateUpdateDb(String jsonIn, @QueryParam("id") int idIn) throws SQLException {
+    public String templateUpdateDb(String jsonIn, @QueryParam("id") int idIn) {
         JSONObject jsonRet = new JSONObject(jsonIn);
         System.out.println(jsonRet.toString(4));
         TemplateDao addTempDao = new TemplateDao();
-        addTempDao.updateTemplate(jsonRet, idIn);
+        try {
+            addTempDao.updateTemplate(jsonRet, idIn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return "received";
     }
 }
