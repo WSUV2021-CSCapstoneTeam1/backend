@@ -92,11 +92,15 @@ public class TemplateController {
     @Path("/rds/post")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String templatePostDb(String jsonIn) throws SQLException {
+    public String templatePostDb(String jsonIn) {
         JSONObject jsonRet = new JSONObject(jsonIn);
         System.out.println(jsonRet.toString(4));
         TemplateDao addTempDao = new TemplateDao();
-        addTempDao.addTemplate(jsonRet);
+        try {
+            addTempDao.addTemplate(jsonRet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return "received";
     }
 
@@ -104,11 +108,15 @@ public class TemplateController {
     @Path("/rds/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String templateUpdateDb(String jsonIn, @QueryParam("id") int idIn) throws SQLException {
+    public String templateUpdateDb(String jsonIn, @QueryParam("id") int idIn) {
         JSONObject jsonRet = new JSONObject(jsonIn);
         System.out.println(jsonRet.toString(4));
         TemplateDao addTempDao = new TemplateDao();
-        addTempDao.updateTemplate(jsonRet, idIn);
+        try {
+            addTempDao.updateTemplate(jsonRet, idIn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return "received";
     }
 }
