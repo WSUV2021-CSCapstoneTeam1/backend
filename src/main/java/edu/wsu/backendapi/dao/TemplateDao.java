@@ -89,6 +89,7 @@ public class TemplateDao {
             retString += "\'name\':\'" + resultSet.getString("name") + "\',";
             retString += "\'lookup\':\'" + resultSet.getString("lookup") + "\',";
             retString += "\'type\':\'" + resultSet.getString("type") + "\',";
+            retString += "\'text\':\'" + resultSet.getString("text") + "\',";
             retString += "\'extension\':\'" + resultSet.getString("extension") + "\',";
             retString += "\'contentType\':\'" + resultSet.getString("contentType") + "\'";
             retString += "}";
@@ -122,6 +123,7 @@ public class TemplateDao {
             retString += "\'name\':\'" + resultSet.getString("name") + "\',";
             retString += "\'lookup\':\'" + resultSet.getString("lookup") + "\',";
             retString += "\'type\':\'" + resultSet.getString("type") + "\',";
+            retString += "\'text\':\'" + resultSet.getString("text") + "\',";
             retString += "\'extension\':\'" + resultSet.getString("extension") + "\',";
             retString += "\'contentType\':\'" + resultSet.getString("contentType") + "\'";
             retString += "}";
