@@ -22,7 +22,8 @@
       <label for="group-0"><span class="fa fa-angle-right"></span> Server</label>
       <ul class="group-list">
         <li>
-        <table id="server-info-table">
+          <br/>
+          <table id="server-info-table">
           <tr><td>Server</td><td>Amazon EC2 t2.medium</td></tr>
           <tr><td>Operating System - Platform</td><td>Amazon  Linux, Linux 2 Arch</td></tr>
           <tr><td>Web Server</td><td>Tomcat 9.x</td></tr>
@@ -31,6 +32,7 @@
           <tr><td>Credentials</td><td>AWS Secrets</td></tr>
           <tr><td>Database</td><td>MySQL RDS - endpoint</td></tr>
         </table>
+          <br/>
         </li>
       </ul>
     </li>
@@ -39,11 +41,13 @@
       <label for="group-1"><span class="fa fa-angle-right"></span> CI/CD</label>
       <ul class="group-list">
         <li>
+          <br/>
           <table id="cicd-info-table">
             <tr><td>CI/CD Server Application</td><td>Jenkins and Git</td></tr>
             <tr><td>Connected to:</td><td>Github Repository</td></tr>
             <tr><td>Connected with:</td><td>Github webhooks</td></tr>
           </table>
+          <br/>
         </li>
       </ul>
     </li>
@@ -65,6 +69,7 @@
                   <label for="sub-group-2-1-1"><span class="fa fa-angle-right"></span> GET - api/template/siteflow/get/all </label>
                     <ul class="sub-group-list">
                       <li>
+                        <br/>
 
                         <table class="api-doc-table">
                           <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/siteflow/get/all</td></tr>
@@ -92,6 +97,7 @@
                   <label for="sub-group-2-2-1"><span class="fa fa-angle-right"></span> GET - api/template/rds/get/all </label>
                   <ul class="sub-group-list">
                     <li>
+                      <br/>
 
                       <table class="api-doc-table">
                         <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/get/all</td></tr>
@@ -113,6 +119,7 @@
                   <label for="sub-group-2-2-2"><span class="fa fa-angle-right"></span> GET - api/template/rds/get?id=[integer] </label>
                   <ul class="sub-group-list">
                     <li>
+                      <br/>
 
                       <table class="api-doc-table">
                         <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/get?id=[integer]</td></tr>
@@ -135,9 +142,11 @@
                   <ul class="sub-group-list">
                     <li>
 
+                      <br/>
+
                       <table class="api-doc-table">
-                        <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/get?id=[integer]</td></tr>
-                        <tr><td class="api-doc-field-name">Method</td><td>GET</td></tr>
+                        <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/post</td></tr>
+                        <tr><td class="api-doc-field-name">Method</td><td>POST</td></tr>
                         <tr><td class="api-doc-field-name">Postbacks</td><td>200 OK</td></tr>
                         <tr><td class="api-doc-field-name">Input</td><td>JSON Object</td></tr>
                         <tr><td class="api-doc-field-name">Input Format</td><td><img src="img/doc-template-rds-post-json.png" /></td></tr>
@@ -156,6 +165,7 @@
                   <label for="sub-group-2-2-4"><span class="fa fa-angle-right"></span> POST - api/template/rds/update?id=[integer] </label>
                   <ul class="sub-group-list">
                     <li>
+                      <br/>
 
                       <table class="api-doc-table">
                         <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/update?id=[integer]</td></tr>
@@ -178,6 +188,7 @@
                   <label for="sub-group-2-2-5"><span class="fa fa-angle-right"></span> DELETE - api/template/rds/delete?id=[integer] </label>
                   <ul class="sub-group-list">
                     <li>
+                      <br/>
 
                       <table class="api-doc-table">
                         <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/delete?id=[integer]</td></tr>
@@ -187,7 +198,7 @@
 
                       <table class="postman-example">
                         <tr><td class="api-doc-field-postman-title">POSTMAN EXAMPLE</td><td class="api-doc-field-postman-postback">200 OK</td></tr>
-                        <tr><td></td>><td class="api-doc-field-image"><img src="img/doc-template-rds-get-by-id.png" /></td></tr>
+                        <tr><td></td>><td class="api-doc-field-image"><img src="img/doc-template-rds-delete-by-id.png" /></td></tr>
                       </table>
 
                     </li>
