@@ -25,11 +25,11 @@ li {
 
 .group-list a, .group-list label {
     padding-left: 2rem;
-    background: #DA7936;
+    background: #5683cc;
     box-shadow: inset 0 -1px #373737;
 }
 
-.group-list a:focus, .group-list a:hover, .group-list label:focus, .group-list label:hover { background: #ECB237; }
+.group-list a:focus, .group-list a:hover, .group-list label:focus, .group-list label:hover { background: #87a9e0; }
 
 /**
  * Styling second level list items
@@ -37,11 +37,11 @@ li {
 
 .sub-group-list a, .sub-group-list label {
     padding-left: 4rem;
-    background: #DA7936;
+    background: #5683cc;
     box-shadow: inset 0 -1px #474747;
 }
 
-.sub-group-list a:focus, .sub-group-list a:hover, .sub-group-list label:focus, .sub-group-list label:hover { background: #ECB237; }
+.sub-group-list a:focus, .sub-group-list a:hover, .sub-group-list label:focus, .sub-group-list label:hover { background: #87a9e0; }
 
 /**
  * Styling third level list items
@@ -49,17 +49,30 @@ li {
 
 .sub-sub-group-list a, .sub-sub-group-list label {
     padding-left: 6rem;
-    background: #DA7936;
+    background: #5683cc;
     box-shadow: inset 0 -1px #575757;
 }
 
-.sub-sub-group-list a:focus, .sub-sub-group-list a:hover, .sub-sub-group-list label:focus, .sub-sub-group-list label:hover { background: #ECB237; }
+.sub-sub-group-list a:focus, .sub-sub-group-list a:hover, .sub-sub-group-list label:focus, .sub-sub-group-list label:hover { background: #87a9e0; }
+
+
+/**
+ * Styling fourth level list items
+ */
+
+.sub-sub-sub-group-list a, .sub-sub-sub-group-list label {
+    padding-left: 6rem;
+    background: #5683cc;
+    box-shadow: inset 0 -1px #575757;
+}
+
+.sub-sub-sub-group-list a:focus, .sub-sub-sub-group-list a:hover, .sub-sub-sub-group-list label:focus, .sub-sub-sub-group-list label:hover { background: #87a9e0; }
 
 /**
  * Hide nested lists
  */
 
-.group-list, .sub-group-list, .sub-sub-group-list {
+.group-list, .sub-group-list, .sub-sub-group-list .sub-sub-sub-group-list {
     height: 100%;
     max-height: 0;
     overflow: hidden;
@@ -67,8 +80,10 @@ li {
     transition: max-height .5s ease-in-out;
 }
 
-.nav__list input[type=checkbox]:checked + label + ul { /* reset the height when checkbox is checked */
-    max-height: 1000px; }
+/* reset the height when checkbox is checked */
+.nav__list input[type=checkbox]:checked + label + ul {
+    max-height: 2000px; }
+
 
 label > span {
     float: right;
@@ -80,4 +95,29 @@ label > span {
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
+}
+
+table.api-doc-table {
+    width: 80%;
+    border: 1px solid #000;
+}
+
+table.api-doc-table td {
+    border: 1px solid #000;
+}
+
+table.postman-example {
+    width: 80%;
+}
+
+td.api-doc-field-postman-title {
+    width: 25%;
+}
+
+table.postman-example td {
+    border-bottom: 1px solid #000;
+}
+
+.api-doc-field-image img {
+    width: 100%;
 }
