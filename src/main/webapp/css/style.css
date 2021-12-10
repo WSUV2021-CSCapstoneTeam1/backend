@@ -73,7 +73,7 @@ li {
  */
 
 .group-list, .sub-group-list, .sub-sub-group-list .sub-sub-sub-group-list {
-    height: 100%;
+    height: fit-content;
     max-height: 0;
     overflow: hidden;
     -webkit-transition: max-height .5s ease-in-out;
