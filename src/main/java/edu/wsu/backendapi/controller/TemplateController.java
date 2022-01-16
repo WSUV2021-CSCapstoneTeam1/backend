@@ -1,8 +1,8 @@
 package edu.wsu.backendapi.controller;
 
 import edu.wsu.backendapi.dao.TemplateDao;
-import edu.wsu.backendapi.service.TemplateService;
-import static edu.wsu.backendapi.service.TemplateService.printInfo;
+import edu.wsu.backendapi.service.SiteflowService;
+import static edu.wsu.backendapi.service.SiteflowService.printInfo;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -23,9 +23,9 @@ public class TemplateController {
     @Path("/siteflow/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Object templateGetAll() {
-        TemplateService tempServ = new TemplateService();
+        SiteflowService tempServ = new SiteflowService();
         try {
-            HttpResponse output = tempServ.conn();
+            HttpResponse output = tempServ.getAllTemplates();
             return printInfo(output,true);
         } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();

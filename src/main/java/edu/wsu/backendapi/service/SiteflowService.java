@@ -12,22 +12,33 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class TemplateService {
+public class SiteflowService {
 
-    public TemplateService() {}
+    public SiteflowService() {}
 
-    public HttpResponse conn() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
+    public HttpResponse getAllTemplates() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
+        SiteFlow siteFlow = getSiteFlow();
 
+        //printInfo(siteFlow.GetAllTemplates(), true);
+        HttpResponse info = siteFlow.GetAllTemplates();
+        return info;
+    }
+
+    public HttpResponse getAllSkus() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
+        SiteFlow siteFlow = getSiteFlow();
+
+        HttpResponse info = siteFlow.GetSkus();
+        return info;
+    }
+
+    private SiteFlow getSiteFlow() {
         GetSFCredentials sfCreds = new GetSFCredentials();
         String[] cred = sfCreds.getSiteFlowCredentials();
         String key = cred[0];
         String secret = cred[1];
         String algorithm = cred[2];
 
-        SiteFlow siteFlow = new SiteFlow(key, secret, algorithm);
-        //printInfo(siteFlow.GetAllTemplates(), true);
-        HttpResponse info = siteFlow.GetAllTemplates();
-        return info;
+        return new SiteFlow(key, secret, algorithm);
     }
 
     /**

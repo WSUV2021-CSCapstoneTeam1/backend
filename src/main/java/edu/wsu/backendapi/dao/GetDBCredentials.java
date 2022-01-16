@@ -21,6 +21,7 @@ public class GetDBCredentials {
         String password = secretsRDSPasswordObj.getString("RDS_PASSWORD");
 
         String[] creds = {password,hostName};
+
         return creds;
     }
 }

@@ -77,6 +77,26 @@ public class SiteFlow {
         return client.execute(request);
     }
 
+
+    /**
+     * Gets a list of skus in Site Flow.
+     *
+     * @return
+     * @throws InvalidKeyException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
+    public HttpResponse GetSkus() throws InvalidKeyException, NoSuchAlgorithmException, IOException {
+        String path = "/api/sku";
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet request = new HttpGet(baseUrl + path);
+
+        addHeaders(request, "GET", path);
+
+        System.out.println("Getting Skus");
+        return client.execute(request);
+    }
+
     /**
      * Adds the headers to an HttpRequest
      *
