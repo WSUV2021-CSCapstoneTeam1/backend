@@ -1,0 +1,17 @@
+edu/wsu/backendapi/controller/SKUController.class
+edu/wsu/backendapi/dao/TemplateDao.class
+edu/wsu/backendapi/siteflow/GetSFCredentials.class
+edu/wsu/backendapi/model/Template.class
+edu/wsu/backendapi/controller/TemplateController.class
+edu/wsu/backendapi/controller/ProductController.class
+edu/wsu/backendapi/siteflow/HmacAuth.class
+edu/wsu/backendapi/dao/DBConn.class
+edu/wsu/backendapi/servlet/HelloServlet.class
+edu/wsu/backendapi/controller/HelloController.class
+edu/wsu/backendapi/siteflow/SiteFlow.class
+edu/wsu/backendapi/service/SiteflowService.class
+edu/wsu/backendapi/HelloApplication.class
+edu/wsu/backendapi/CORSFilter.class
+edu/wsu/backendapi/servlet/TemplateServlet.class
+edu/wsu/backendapi/dao/GetDBCredentials.class
+edu/wsu/backendapi/awssecret/AwssecretCredential.class
