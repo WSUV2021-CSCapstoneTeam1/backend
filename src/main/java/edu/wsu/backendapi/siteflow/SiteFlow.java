@@ -98,6 +98,26 @@ public class SiteFlow {
     }
 
     /**
+     * Gets a list of products in Site Flow.
+     *
+     * @return
+     * @throws InvalidKeyException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
+    public HttpResponse GetProducts() throws InvalidKeyException, NoSuchAlgorithmException, IOException {
+        String path = "/api/product";
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet request = new HttpGet(baseUrl + path);
+
+        addHeaders(request, "GET", path);
+
+        System.out.println("Getting Products");
+        return client.execute(request);
+    }
+
+
+    /**
      * Adds the headers to an HttpRequest
      *
      * @param request - request to add the headers to

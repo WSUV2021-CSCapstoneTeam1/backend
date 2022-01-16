@@ -31,6 +31,13 @@ public class SiteflowService {
         return info;
     }
 
+    public HttpResponse getAllProducts() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
+        SiteFlow siteFlow = getSiteFlow();
+
+        HttpResponse info = siteFlow.GetProducts();
+        return info;
+    }
+
     private SiteFlow getSiteFlow() {
         GetSFCredentials sfCreds = new GetSFCredentials();
         String[] cred = sfCreds.getSiteFlowCredentials();
