@@ -1,17 +1,17 @@
 package edu.wsu.backendapi.controller;
 
+import edu.wsu.backendapi.dao.TemplateDao;
 import edu.wsu.backendapi.service.SiteflowService;
 import org.apache.http.HttpResponse;
 import org.json.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.awt.*;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import static edu.wsu.backendapi.service.SiteflowService.printInfo;
 
@@ -25,6 +25,24 @@ public class SKUController {
         SiteflowService tempServ = new SiteflowService();
         try {
             HttpResponse output = tempServ.getAllSkus();
+            return printInfo(output,true);
+        } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject obj = new JSONObject();
+        obj.put("status", 400);
+        return obj.toString(4);
+    }
+
+    @POST
+    @Path("/siteflow/post")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String templatePostDb(String jsonIn) {
+        SiteflowService tempServ = new SiteflowService();
+        try {
+            HttpResponse output = tempServ.postSku(jsonIn);
             return printInfo(output,true);
         } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();

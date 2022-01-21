@@ -116,6 +116,26 @@ public class SiteFlow {
         return client.execute(request);
     }
 
+    /**
+     * Submits an order into Site Flow
+     *
+     * @param sku - order to submit
+     * @return HttpResponse of the POST request
+     * @throws InvalidKeyException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
+    public HttpResponse PostSku(String sku) throws InvalidKeyException, NoSuchAlgorithmException, IOException {
+        String path = "/api/sku";
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost request = new HttpPost(baseUrl + path);
+
+        addHeaders(request, "POST", path);
+        request.setEntity(new StringEntity(sku, "UTF-8"));
+
+        System.out.println("Submitting SKU");
+        return client.execute(request);
+    }
 
     /**
      * Adds the headers to an HttpRequest
