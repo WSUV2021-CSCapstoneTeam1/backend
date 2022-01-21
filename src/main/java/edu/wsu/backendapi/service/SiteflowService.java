@@ -31,6 +31,13 @@ public class SiteflowService {
         return info;
     }
 
+    public HttpResponse postSku(String sku) throws IOException, InvalidKeyException, NoSuchAlgorithmException {
+        SiteFlow siteFlow = getSiteFlow();
+
+        HttpResponse info = siteFlow.PostSku(sku);
+        return info;
+    }
+
     public HttpResponse getAllProducts() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
         SiteFlow siteFlow = getSiteFlow();
 
