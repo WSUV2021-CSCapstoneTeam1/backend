@@ -18,29 +18,24 @@ public class SiteflowService {
 
     public HttpResponse getAllTemplates() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
         SiteFlow siteFlow = getSiteFlow();
-
-        //printInfo(siteFlow.GetAllTemplates(), true);
         HttpResponse info = siteFlow.GetAllTemplates();
         return info;
     }
 
     public HttpResponse getAllSkus() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
         SiteFlow siteFlow = getSiteFlow();
-
         HttpResponse info = siteFlow.GetSkus();
         return info;
     }
 
     public HttpResponse postSku(String sku) throws IOException, InvalidKeyException, NoSuchAlgorithmException {
         SiteFlow siteFlow = getSiteFlow();
-
         HttpResponse info = siteFlow.PostSku(sku);
         return info;
     }
 
     public HttpResponse getAllProducts() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
         SiteFlow siteFlow = getSiteFlow();
-
         HttpResponse info = siteFlow.GetProducts();
         return info;
     }
