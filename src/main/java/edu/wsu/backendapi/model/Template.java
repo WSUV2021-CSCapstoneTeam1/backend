@@ -1,5 +1,9 @@
 package edu.wsu.backendapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//@JsonIgnoreProperties("document")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Template {
     private String accountId;
     private Boolean active;
