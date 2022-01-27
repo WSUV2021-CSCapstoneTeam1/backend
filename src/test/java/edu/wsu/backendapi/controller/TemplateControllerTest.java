@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TemplateControllerTest {
+/*
     private TemplateController testGetAll;
 
     @BeforeEach
@@ -42,7 +43,7 @@ public class TemplateControllerTest {
         assertTrue(true);
 
     }
-/*
+*/
     @Test
     @DisplayName("Get Templates By ID Tests")
     void getTemplateByIdTests() throws SQLException {
@@ -52,11 +53,12 @@ public class TemplateControllerTest {
         TestObj.put("description", "This is a description");
         String TestObjStr = TestObj.toString();
 
+        TemplateController testGetAll = spy(new TemplateController());
         //MOCK for testing TemplateDao.getTemplateAllRds()
         TemplateDao MockTempDao = mock(TemplateDao.class);
         when(MockTempDao.getTemplateAllRds()).thenReturn(TestObjStr);
         //System.out.println(MockTempDao.getTemplateAllRds());
-
+        when(testGetAll.templateGetAllRds()).thenReturn(MockTempDao);
         //MOCK for testing TemplateController.templateGetAllRds()
         System.out.println(testGetAll.templateGetAllRds());
 
@@ -65,5 +67,5 @@ public class TemplateControllerTest {
 
     }
 
- */
+
 }
