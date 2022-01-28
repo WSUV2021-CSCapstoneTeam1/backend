@@ -46,6 +46,10 @@ public class PreProcess {
             System.out.println("Type: " + tempIn.getType());
             return -1;
         }
+
+
+        //tempIn.getText().replaceAll("\\n","");
+
         return 1;
     }
 }

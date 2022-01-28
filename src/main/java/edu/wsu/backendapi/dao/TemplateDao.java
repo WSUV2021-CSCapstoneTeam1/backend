@@ -77,16 +77,19 @@ public class TemplateDao {
 
     public int deleteTemplateByIdRds(int idIn) throws SQLException {
         DBConn conn = new DBConn();
-        Statement stmt = conn.makeConnection().createStatement();
 
-        String testId = "SELECT * FROM template WHERE id=" + idIn + ";";
-        ResultSet resultSet1 = stmt.executeQuery(testId);
+        PreparedStatement stmt1 = conn.makeConnection().prepareStatement("SELECT * FROM template WHERE id = ?");
+        stmt1.setInt(1,idIn);
+        ResultSet resultSet1 = stmt1.executeQuery();
 
         if (resultSet1.next()) {
-            String sqlStr = "DELETE FROM template WHERE id=" + idIn + ";";
-            stmt.executeUpdate(sqlStr);
+            PreparedStatement stmt2 = conn.makeConnection().prepareStatement( "DELETE FROM template WHERE id = ?");
+            stmt2.setInt(1,idIn);
+            stmt2.executeUpdate();
+            conn.close();
             return 1;
         } else {
+            conn.close();
             return -1;
         }
     }
