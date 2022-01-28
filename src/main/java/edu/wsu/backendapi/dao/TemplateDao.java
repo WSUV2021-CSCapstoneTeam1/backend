@@ -94,8 +94,35 @@ public class TemplateDao {
         }
     }
 
-    public String getTemplateAllRds() throws SQLException {
+    public Object getTemplateAllRds() throws SQLException {
         DBConn conn = new DBConn();
+        /*
+
+        PreparedStatement stmt = conn.makeConnection().prepareStatement("SELECT * FROM template");
+        ResultSet resultSet = stmt.executeQuery();
+
+        System.out.println("HERE");
+        System.out.println(resultSet.getInt("id"));
+        System.out.println(resultSet.getString("accountId"));
+        System.out.println(resultSet.getInt("id"));
+
+
+        JSONObject retStrObj = new JSONObject();
+        retStrObj.put("id", resultSet.getInt("id"));
+        retStrObj.put("accountId", resultSet.getString("accountId"));
+        retStrObj.put("active", resultSet.getBoolean("active"));
+        retStrObj.put("globalRead", resultSet.getBoolean("globalRead"));
+        retStrObj.put("globalResourceName", resultSet.getString("globalResourceName"));
+        retStrObj.put("name", resultSet.getString("name"));
+        retStrObj.put("lookup", resultSet.getString("lookup"));
+        retStrObj.put("type", resultSet.getString("type"));
+        retStrObj.put("text", resultSet.getString("text"));
+        retStrObj.put("extension", resultSet.getString("extension"));
+        retStrObj.put("contentType", resultSet.getString("contentType"));
+
+        System.out.println(retStrObj.toString());
+         */
+
         Statement stmt = conn.makeConnection().createStatement();
         String sqlStr = "SELECT * FROM template;";
         ResultSet resultSet = stmt.executeQuery(sqlStr);
@@ -126,7 +153,8 @@ public class TemplateDao {
         JSONObject retStrObj = new JSONObject(retString);
 
         conn.close();
-        return retStrObj.toString(4);
+        //return retStrObj.toString(4);
+        return retStrObj;
     }
 
     public String getTemplateByIdRds(int idIn) throws SQLException {

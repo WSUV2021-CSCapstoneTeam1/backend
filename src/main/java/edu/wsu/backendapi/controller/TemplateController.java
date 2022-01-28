@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import org.json.JSONObject;
 import org.apache.http.HttpResponse;
 
+import javax.swing.text.html.parser.Entity;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -47,14 +48,11 @@ public class TemplateController {
     public Object templateGetAllRds() {
         TemplateDao tempGetRds = new TemplateDao();
         try {
-            return tempGetRds.getTemplateAllRds();
+            return Response.ok(tempGetRds.getTemplateAllRds().toString()).build();
         } catch ( SQLException e) {
             e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST);
         }
-
-        JSONObject obj = new JSONObject();
-        obj.put("status", 400);
-        return obj.toString(4);
     }
 
     @GET
