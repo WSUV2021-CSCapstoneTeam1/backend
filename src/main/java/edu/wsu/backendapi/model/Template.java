@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Template {
     private String accountId;
     private Boolean active;
-    private Boolean global;
+    private Boolean globalRead;
     private String globalResourceName;
     private String name;
     private String lookup;
@@ -25,9 +25,7 @@ public class Template {
         return active;
     }
 
-    public Boolean getGlobal() {
-        return global;
-    }
+    public Boolean getGlobalRead() { return globalRead; }
 
     public String getGlobalResourceName() {
         return globalResourceName;
@@ -67,8 +65,8 @@ public class Template {
         this.active = active;
     }
 
-    public void setGlobal(Boolean global) {
-        this.global = global;
+    public void setGlobal(Boolean globalRead) {
+        this.globalRead = globalRead;
     }
 
     public void setGlobalResourceName(String globalResourceName) {

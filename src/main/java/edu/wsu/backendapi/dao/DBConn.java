@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConn {
+    private Connection con;
+
     public DBConn() {
     }
     public Connection makeConnection() {
@@ -12,7 +14,7 @@ public class DBConn {
         String[] creds = rdsCreds.getRDSCredentials();
         String jdbcUrl = "jdbc:mysql://" + creds[1] + ":3306/backend?user=admin&password=" + creds[0];
 
-        Connection con = null;
+        //Connection con = null;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -25,5 +27,13 @@ public class DBConn {
         }
 
         return con;
+    }
+
+    public void close() {
+        try {
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
