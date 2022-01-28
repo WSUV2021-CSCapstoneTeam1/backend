@@ -1,7 +1,9 @@
 package edu.wsu.backendapi.dao;
 
+import edu.wsu.backendapi.model.Template;
 import org.json.JSONObject;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,46 +13,65 @@ public class TemplateDao {
     public TemplateDao() {
     }
 
-    public String addTemplate(JSONObject tempAdd) throws SQLException {
-        //System.out.println(tempAdd.getString("accountId"));
-        //System.out.println(tempAdd.getBoolean("active"));
+    public String addTemplate(Template tempAdd) {
         DBConn conn = new DBConn();
-        Statement stmt = conn.makeConnection().createStatement();
-        String sqlStr = "INSERT INTO template (accountId, active, globalRead, globalResourceName, name, lookup, type, text, extension, contentType) " +
-                "VALUES (" +
-                "\'" + tempAdd.getString("accountId") + "\'," +
-                tempAdd.getBoolean("active") + "," +
-                tempAdd.getBoolean("globalRead") + "," +
-                "\'" + tempAdd.getString("globalResourceName") + "\'," +
-                "\'" + tempAdd.getString("name") + "\'," +
-                "\'" + tempAdd.getString("lookup") + "\'," +
-                "\'" + tempAdd.getString("type") + "\'," +
-                "\'" + tempAdd.getString("text") + "\'," +
-                "\'" + tempAdd.getString("extension") + "\'," +
-                "\'" + tempAdd.getString("contentType") + "\'" +
-                ");";
-        stmt.executeUpdate(sqlStr);
+
+        PreparedStatement stmt = null;
+        try {
+            stmt = conn.makeConnection().prepareStatement("INSERT INTO template (" +
+                    "accountID, active, globalRead, globalResourceName, name, lookup, type, text, " +
+                    "extension, contentType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            stmt.setString(1,tempAdd.getAccountId());
+            stmt.setBoolean(2,tempAdd.getActive());
+            stmt.setBoolean(3,tempAdd.getGlobalRead());
+            stmt.setString(4,tempAdd.getGlobalResourceName());
+            stmt.setString(5,tempAdd.getName());
+            stmt.setString(6,tempAdd.getLookup());
+            stmt.setString(7,tempAdd.getType());
+            stmt.setString(8,tempAdd.getText());
+            stmt.setString(9,tempAdd.getExtension());
+            stmt.setString(10,tempAdd.getContentType());
+            stmt.executeUpdate();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return "new template added";
     }
 
-    public String updateTemplate(JSONObject tempAdd, int idIn) throws SQLException {
-        //System.out.println(tempAdd.getString("accountId"));
-        //System.out.println(tempAdd.getBoolean("active"));
+    public String updateTemplate(Template tempAdd, int idIn) {
         DBConn conn = new DBConn();
-        Statement stmt = conn.makeConnection().createStatement();
-        String sqlStr = "UPDATE template SET " +
-                "accountId=\'" + tempAdd.getString("accountId") + "\'," +
-                "active=" + tempAdd.getBoolean("active") + "," +
-                "globalRead=" + tempAdd.getBoolean("globalRead") + "," +
-                "globalResourceName=\'" + tempAdd.getString("globalResourceName") + "\'," +
-                "name=\'" + tempAdd.getString("name") + "\'," +
-                "lookup=\'" + tempAdd.getString("lookup") + "\'," +
-                "type=\'" + tempAdd.getString("type") + "\'," +
-                "text=\'" + tempAdd.getString("text") + "\'," +
-                "extension=\'" + tempAdd.getString("extension") + "\'," +
-                "contentType=\'" + tempAdd.getString("contentType") + "\'" +
-                "WHERE id=" + idIn + ";";
-        stmt.executeUpdate(sqlStr);
+
+        PreparedStatement stmt = null;
+        try {
+
+            stmt = conn.makeConnection().prepareStatement("UPDATE template SET " +
+                    "accountID = ?, active = ?, globalRead = ?, globalResourceName = ?, name = ?," +
+                    "lookup = ?, type = ?, text = ?, extension = ?, contentType = ? WHERE id = ?");
+
+            stmt.setString(1,tempAdd.getAccountId());
+            stmt.setBoolean(2,tempAdd.getActive());
+            stmt.setBoolean(3,tempAdd.getGlobalRead());
+            stmt.setString(4,tempAdd.getGlobalResourceName());
+            stmt.setString(5,tempAdd.getName());
+            stmt.setString(6,tempAdd.getLookup());
+            stmt.setString(7,tempAdd.getType());
+            stmt.setString(8,tempAdd.getText());
+            stmt.setString(9,tempAdd.getExtension());
+            stmt.setString(10,tempAdd.getContentType());
+            stmt.setInt(11,idIn);
+            stmt.executeUpdate();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return "template updated";
     }
 
@@ -101,6 +122,7 @@ public class TemplateDao {
         //System.out.println(retString);
         JSONObject retStrObj = new JSONObject(retString);
 
+        conn.close();
         return retStrObj.toString(4);
     }
 
@@ -135,6 +157,7 @@ public class TemplateDao {
         //System.out.println(retString);
         JSONObject retStrObj = new JSONObject(retString);
 
+        conn.close();
         return retStrObj.toString(4);
     }
 }

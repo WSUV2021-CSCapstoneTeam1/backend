@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wsu.backendapi.dao.TemplateDao;
 import edu.wsu.backendapi.model.Template;
+import edu.wsu.backendapi.security.PreProcess;
 import edu.wsu.backendapi.service.SiteflowService;
 import static edu.wsu.backendapi.service.SiteflowService.printInfo;
 
@@ -97,30 +98,47 @@ public class TemplateController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String templatePostDb(String jsonIn) {
-        JSONObject jsonRet = new JSONObject(jsonIn);
-        System.out.println(jsonRet.toString(4));
-        TemplateDao addTempDao = new TemplateDao();
+        ObjectMapper objectMapper = new ObjectMapper();
+        //objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        Template templateRdsUpdate = new Template();
         try {
-            addTempDao.addTemplate(jsonRet);
-        } catch (SQLException e) {
+            templateRdsUpdate = objectMapper.readValue(jsonIn, Template.class);
+
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
+        PreProcess preprocessInput = new PreProcess();
+        int isGood = preprocessInput.PreProcessTemplate(templateRdsUpdate);
+        System.out.println("isGood: " + isGood);
+
+        TemplateDao addTempDao = new TemplateDao();
+        addTempDao.addTemplate(templateRdsUpdate);
         return "received";
     }
 
-    @POST
+    @PUT
     @Path("/rds/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String templateUpdateDb(String jsonIn, @QueryParam("id") int idIn) {
-        JSONObject jsonRet = new JSONObject(jsonIn);
-        System.out.println(jsonRet.toString(4));
-        TemplateDao addTempDao = new TemplateDao();
+        ObjectMapper objectMapper = new ObjectMapper();
+        //objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        Template templateRdsUpdate = new Template();
         try {
-            addTempDao.updateTemplate(jsonRet, idIn);
-        } catch (SQLException e) {
+            templateRdsUpdate = objectMapper.readValue(jsonIn, Template.class);
+
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
+        PreProcess preprocessInput = new PreProcess();
+        int isGood = preprocessInput.PreProcessTemplate(templateRdsUpdate);
+        System.out.println("isGood: " + isGood);
+
+        TemplateDao addTempDao = new TemplateDao();
+        addTempDao.updateTemplate(templateRdsUpdate, idIn);
+
         return "received";
     }
 }
