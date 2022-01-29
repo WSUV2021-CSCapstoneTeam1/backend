@@ -127,7 +127,6 @@ public class TemplateController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response templateUpdateDb(String jsonIn, @QueryParam("id") int idIn) {
-        int retVal = 0;
         ObjectMapper objectMapper = new ObjectMapper();
         //objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         Template templateRdsUpdate;
