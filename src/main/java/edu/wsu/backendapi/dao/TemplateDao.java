@@ -1,81 +1,161 @@
 package edu.wsu.backendapi.dao;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wsu.backendapi.model.Template;
 import org.json.JSONObject;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class TemplateDao {
 
-    public TemplateDao() {
-    }
+    public TemplateDao() {}
 
-    public String addTemplate(Template tempAdd) {
+    public Object addTemplate(Template tempAdd) throws SQLException, JsonProcessingException {
         DBConn conn = new DBConn();
 
-        PreparedStatement stmt = null;
-        try {
-            stmt = conn.makeConnection().prepareStatement("INSERT INTO template (" +
+        PreparedStatement stmt = conn.makeConnection().prepareStatement("INSERT INTO template (" +
                     "accountID, active, globalRead, globalResourceName, name, lookup, type, text, " +
                     "extension, contentType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            stmt.setString(1,tempAdd.getAccountId());
-            stmt.setBoolean(2,tempAdd.getActive());
-            stmt.setBoolean(3,tempAdd.getGlobalRead());
-            stmt.setString(4,tempAdd.getGlobalResourceName());
-            stmt.setString(5,tempAdd.getName());
-            stmt.setString(6,tempAdd.getLookup());
-            stmt.setString(7,tempAdd.getType());
-            stmt.setString(8,tempAdd.getText());
-            stmt.setString(9,tempAdd.getExtension());
-            stmt.setString(10,tempAdd.getContentType());
-            stmt.executeUpdate();
+        stmt.setString(1,tempAdd.getAccountId());
+        stmt.setBoolean(2,tempAdd.getActive());
+        stmt.setBoolean(3,tempAdd.getGlobalRead());
+        stmt.setString(4,tempAdd.getGlobalResourceName());
+        stmt.setString(5,tempAdd.getName());
+        stmt.setString(6,tempAdd.getLookup());
+        stmt.setString(7,tempAdd.getType());
+        stmt.setString(8,tempAdd.getText());
+        stmt.setString(9,tempAdd.getExtension());
+        stmt.setString(10,tempAdd.getContentType());
+        stmt.executeUpdate();
 
-            conn.close();
+        conn.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return "new template added";
+        ObjectMapper mapper = new ObjectMapper();
+        String retObj = mapper.writeValueAsString(tempAdd);
+        return retObj;
     }
 
-    public String updateTemplate(Template tempAdd, int idIn) {
+    public int updateTemplate(Template tempAdd, int idIn) throws SQLException, JsonProcessingException {
         DBConn conn = new DBConn();
 
-        PreparedStatement stmt = null;
-        try {
+        PreparedStatement stmt = conn.makeConnection().prepareStatement("UPDATE template SET " +
+                "accountID = ?, active = ?, globalRead = ?, globalResourceName = ?, name = ?," +
+                "lookup = ?, type = ?, text = ?, extension = ?, contentType = ? WHERE id = ?");
 
-            stmt = conn.makeConnection().prepareStatement("UPDATE template SET " +
-                    "accountID = ?, active = ?, globalRead = ?, globalResourceName = ?, name = ?," +
-                    "lookup = ?, type = ?, text = ?, extension = ?, contentType = ? WHERE id = ?");
+        stmt.setString(1, tempAdd.getAccountId());
+        stmt.setBoolean(2, tempAdd.getActive());
+        stmt.setBoolean(3, tempAdd.getGlobalRead());
+        stmt.setString(4, tempAdd.getGlobalResourceName());
+        stmt.setString(5, tempAdd.getName());
+        stmt.setString(6, tempAdd.getLookup());
+        stmt.setString(7, tempAdd.getType());
+        stmt.setString(8, tempAdd.getText());
+        stmt.setString(9, tempAdd.getExtension());
+        stmt.setString(10, tempAdd.getContentType());
+        stmt.setInt(11, idIn);
+        stmt.executeUpdate();
 
-            stmt.setString(1,tempAdd.getAccountId());
-            stmt.setBoolean(2,tempAdd.getActive());
-            stmt.setBoolean(3,tempAdd.getGlobalRead());
-            stmt.setString(4,tempAdd.getGlobalResourceName());
-            stmt.setString(5,tempAdd.getName());
-            stmt.setString(6,tempAdd.getLookup());
-            stmt.setString(7,tempAdd.getType());
-            stmt.setString(8,tempAdd.getText());
-            stmt.setString(9,tempAdd.getExtension());
-            stmt.setString(10,tempAdd.getContentType());
-            stmt.setInt(11,idIn);
-            stmt.executeUpdate();
-
-            conn.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return "template updated";
+        conn.close();
+        return 1;
     }
 
     public int deleteTemplateByIdRds(int idIn) throws SQLException {
+        DBConn conn = new DBConn();
+
+        PreparedStatement stmt2 = conn.makeConnection().prepareStatement( "DELETE FROM template WHERE id = ?");
+        stmt2.setInt(1,idIn);
+        stmt2.executeUpdate();
+
+        conn.close();
+        return 1;
+    }
+
+    public Object getTemplateAllRds() throws SQLException {
+        DBConn conn = new DBConn();
+
+        PreparedStatement stmt = conn.makeConnection().prepareStatement("SELECT * FROM template");
+        ResultSet resultSet = stmt.executeQuery();
+
+        JSONObject retObj = new JSONObject();
+        Collection<JSONObject> templateItems = new ArrayList<JSONObject>();
+        retObj.put("pages", -1);
+        int count = 0;
+
+        while (resultSet.next()) {
+            JSONObject itemObj = new JSONObject();
+            itemObj.put("id", resultSet.getInt("id"));
+            itemObj.put("accountId", resultSet.getString("accountId"));
+            itemObj.put("active", resultSet.getBoolean("active"));
+            itemObj.put("globalRead", resultSet.getBoolean("globalRead"));
+            itemObj.put("globalResourceName", resultSet.getString("globalResourceName"));
+            itemObj.put("name", resultSet.getString("name"));
+            itemObj.put("lookup", resultSet.getString("lookup"));
+            itemObj.put("type", resultSet.getString("type"));
+            itemObj.put("text", resultSet.getString("text"));
+            itemObj.put("extension", resultSet.getString("extension"));
+            itemObj.put("contentType", resultSet.getString("contentType"));
+
+            templateItems.add(itemObj);
+            count += 1;
+
+            //System.out.println(itemObj.toString());
+        }
+
+        conn.close();
+        retObj.put("data", templateItems);
+        retObj.put("count", count);
+
+        return retObj.toString(4);
+    }
+
+    public Object getTemplateByIdRds(int idIn) throws SQLException {
+        DBConn conn = new DBConn();
+
+        PreparedStatement stmt = conn.makeConnection().prepareStatement("SELECT * FROM template " +
+                "WHERE id = ?");
+        stmt.setInt(1, idIn);
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        JSONObject retObj = new JSONObject();
+        Collection<JSONObject> templateItems = new ArrayList<JSONObject>();
+        retObj.put("pages", -1);
+        int count = 0;
+
+        while (resultSet.next()) {
+            JSONObject itemObj = new JSONObject();
+            itemObj.put("id", resultSet.getInt("id"));
+            itemObj.put("accountId", resultSet.getString("accountId"));
+            itemObj.put("active", resultSet.getBoolean("active"));
+            itemObj.put("globalRead", resultSet.getBoolean("globalRead"));
+            itemObj.put("globalResourceName", resultSet.getString("globalResourceName"));
+            itemObj.put("name", resultSet.getString("name"));
+            itemObj.put("lookup", resultSet.getString("lookup"));
+            itemObj.put("type", resultSet.getString("type"));
+            itemObj.put("text", resultSet.getString("text"));
+            itemObj.put("extension", resultSet.getString("extension"));
+            itemObj.put("contentType", resultSet.getString("contentType"));
+
+            templateItems.add(itemObj);
+            count += 1;
+
+            //System.out.println(itemObj.toString());
+        }
+
+        conn.close();
+        retObj.put("data", templateItems);
+        retObj.put("count", count);
+
+        return retObj.toString(4);
+    }
+
+    public Boolean checkExist(int idIn) throws SQLException {
         DBConn conn = new DBConn();
 
         PreparedStatement stmt1 = conn.makeConnection().prepareStatement("SELECT * FROM template WHERE id = ?");
@@ -83,111 +163,12 @@ public class TemplateDao {
         ResultSet resultSet1 = stmt1.executeQuery();
 
         if (resultSet1.next()) {
-            PreparedStatement stmt2 = conn.makeConnection().prepareStatement( "DELETE FROM template WHERE id = ?");
-            stmt2.setInt(1,idIn);
-            stmt2.executeUpdate();
             conn.close();
-            return 1;
+            return true;
         } else {
             conn.close();
-            return -1;
+            return false;
         }
     }
 
-    public Object getTemplateAllRds() throws SQLException {
-        DBConn conn = new DBConn();
-        /*
-        PreparedStatement stmt = conn.makeConnection().prepareStatement("SELECT * FROM template");
-        ResultSet resultSet = stmt.executeQuery();
-
-        System.out.println("HERE");
-        System.out.println(resultSet.getInt("id"));
-        System.out.println(resultSet.getString("accountId"));
-        System.out.println(resultSet.getInt("id"));
-
-
-        JSONObject retStrObj = new JSONObject();
-        retStrObj.put("id", resultSet.getInt("id"));
-        retStrObj.put("accountId", resultSet.getString("accountId"));
-        retStrObj.put("active", resultSet.getBoolean("active"));
-        retStrObj.put("globalRead", resultSet.getBoolean("globalRead"));
-        retStrObj.put("globalResourceName", resultSet.getString("globalResourceName"));
-        retStrObj.put("name", resultSet.getString("name"));
-        retStrObj.put("lookup", resultSet.getString("lookup"));
-        retStrObj.put("type", resultSet.getString("type"));
-        retStrObj.put("text", resultSet.getString("text"));
-        retStrObj.put("extension", resultSet.getString("extension"));
-        retStrObj.put("contentType", resultSet.getString("contentType"));
-
-        System.out.println(retStrObj.toString());
-         */
-
-        Statement stmt = conn.makeConnection().createStatement();
-        String sqlStr = "SELECT * FROM template;";
-        ResultSet resultSet = stmt.executeQuery(sqlStr);
-        int pages = -1;
-        int count = 0;
-        String retString = "{ \'pages\':" + pages + ",\'data\': [";
-        while (resultSet.next()) {
-            if (count != 0) { retString += ","; }
-            retString += "{";
-            retString += "\'id\':" + resultSet.getInt("id") + ",";
-            retString += "\'accountId\':\'" + resultSet.getString("accountId") + "\',";
-            retString += "\'active\':" + resultSet.getBoolean("active") + ",";
-            retString += "\'globalRead\':" + resultSet.getBoolean("globalRead") + ",";
-            retString += "\'globalResourceName\':\'" + resultSet.getString("globalResourceName") + "\',";
-            retString += "\'name\':\'" + resultSet.getString("name") + "\',";
-            retString += "\'lookup\':\'" + resultSet.getString("lookup") + "\',";
-            retString += "\'type\':\'" + resultSet.getString("type") + "\',";
-            retString += "\'text\':\'" + resultSet.getString("text") + "\',";
-            retString += "\'extension\':\'" + resultSet.getString("extension") + "\',";
-            retString += "\'contentType\':\'" + resultSet.getString("contentType") + "\'";
-            retString += "}";
-            count += 1;
-        }
-        retString += "],";
-        retString += "\'count\':" + count;
-        retString += "}";
-        //System.out.println(retString);
-        JSONObject retStrObj = new JSONObject(retString);
-
-        conn.close();
-        //return retStrObj.toString(4);
-        return retStrObj;
-    }
-
-    public String getTemplateByIdRds(int idIn) throws SQLException {
-        DBConn conn = new DBConn();
-        Statement stmt = conn.makeConnection().createStatement();
-        String sqlStr = "SELECT * FROM template WHERE id=" + idIn + ";";
-        ResultSet resultSet = stmt.executeQuery(sqlStr);
-        int pages = -1;
-        int count = 0;
-        String retString = "{ \'pages\':" + pages + ",\'data\': [";
-        while (resultSet.next()) {
-            if (count != 0) { retString += ","; }
-            retString += "{";
-            retString += "\'id\':" + resultSet.getInt("id") + ",";
-            retString += "\'accountId\':\'" + resultSet.getString("accountId") + "\',";
-            retString += "\'active\':" + resultSet.getBoolean("active") + ",";
-            retString += "\'globalRead\':" + resultSet.getBoolean("globalRead") + ",";
-            retString += "\'globalResourceName\':\'" + resultSet.getString("globalResourceName") + "\',";
-            retString += "\'name\':\'" + resultSet.getString("name") + "\',";
-            retString += "\'lookup\':\'" + resultSet.getString("lookup") + "\',";
-            retString += "\'type\':\'" + resultSet.getString("type") + "\',";
-            retString += "\'text\':\'" + resultSet.getString("text") + "\',";
-            retString += "\'extension\':\'" + resultSet.getString("extension") + "\',";
-            retString += "\'contentType\':\'" + resultSet.getString("contentType") + "\'";
-            retString += "}";
-            count += 1;
-        }
-        retString += "],";
-        retString += "\'count\':" + count;
-        retString += "}";
-        //System.out.println(retString);
-        JSONObject retStrObj = new JSONObject(retString);
-
-        conn.close();
-        return retStrObj.toString(4);
-    }
 }
