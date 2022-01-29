@@ -51,15 +51,13 @@ public class TemplateControllerTest {
         TestObj.put("id", 123);
         TestObj.put("name", "Name One");
         TestObj.put("description", "This is a description");
-        String TestObjStr = TestObj.toString();
 
         TemplateController testGetAll = spy(new TemplateController());
+
         //MOCK for testing TemplateDao.getTemplateAllRds()
         TemplateDao MockTempDao = mock(TemplateDao.class);
-        when(MockTempDao.getTemplateAllRds()).thenReturn(TestObjStr);
-        //System.out.println(MockTempDao.getTemplateAllRds());
-        when(testGetAll.templateGetAllRds()).thenReturn(MockTempDao);
-        //MOCK for testing TemplateController.templateGetAllRds()
+        when(MockTempDao.getTemplateAllRds()).thenReturn(TestObj);
+
         System.out.println(testGetAll.templateGetAllRds());
 
         assertNotNull(testGetAll);
