@@ -63,7 +63,7 @@ public class TemplateController {
                     return Response.status(400, "SQL Error").build();
                 }
             } else {
-                return Response.status(400, "Does Not Exist").build();
+                return Response.status(204, "Content Does Not Exist, No Content").build();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,7 +81,7 @@ public class TemplateController {
                 tempDeleteRds.deleteTemplateByIdRds(id);
                 return Response.status(200, "Template Deleted Successfully").build();
             } else {
-                return Response.status(400, "Template Not Deleted, No Content").build();
+                return Response.status(204, "Template Not Deleted, No Content").build();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,7 +147,7 @@ public class TemplateController {
                     updateTempDao.updateTemplate(templateRdsUpdate, idIn);
                     return Response.status(200, "Template Updated Successfully").build();
                 } else {
-                    return Response.status(400, "Template Update Unsuccessful, No Content Item").build();
+                    return Response.status(204, "Template Update Unsuccessful, No Content Item").build();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
