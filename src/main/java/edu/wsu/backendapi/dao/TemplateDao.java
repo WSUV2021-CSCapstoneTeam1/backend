@@ -97,7 +97,6 @@ public class TemplateDao {
     public Object getTemplateAllRds() throws SQLException {
         DBConn conn = new DBConn();
         /*
-
         PreparedStatement stmt = conn.makeConnection().prepareStatement("SELECT * FROM template");
         ResultSet resultSet = stmt.executeQuery();
 
