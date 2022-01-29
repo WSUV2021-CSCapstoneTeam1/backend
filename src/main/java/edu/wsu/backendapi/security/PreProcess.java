@@ -1,4 +1,5 @@
 package edu.wsu.backendapi.security;
+import edu.wsu.backendapi.model.Sku;
 import edu.wsu.backendapi.model.Template;
 
 public class PreProcess {
@@ -46,8 +47,57 @@ public class PreProcess {
             return false;
         }
 
+        return true;
+    }
 
-        //tempIn.getText().replaceAll("\\n","");
+    public Boolean PreProcessSku(Sku skuIn) {
+        if (!(skuIn.getPackageId() == null)) {
+            System.out.println("PackageID: " + skuIn.getPackageId());
+            return false;
+        }
+        if (!(skuIn.getProductId() instanceof String)) {
+            System.out.println("ProductId: " + skuIn.getProductId());
+            return false;
+        }
+        if (!(skuIn.getActive() instanceof Boolean)) {
+            System.out.println("Active: " + skuIn.getActive());
+            return false;
+        }
+
+        try{
+            Integer.parseInt(skuIn.getMinSLA());
+        }catch(Exception e ){
+            System.out.println("MaxItems: " + skuIn.getMaxItems());
+            return false;
+        }
+
+        if (!(skuIn.getCode() instanceof String)) {
+            System.out.println("Code: " + skuIn.getCode());
+            return false;
+        }
+        if (!(skuIn.getMinSLA() instanceof String)) {
+            System.out.println("minSLA: " + skuIn.getMinSLA());
+            return false;
+        }
+        if (!(skuIn.getDescription() instanceof String)) {
+            System.out.println("Description: " + skuIn.getDescription());
+            return false;
+        }
+        /*
+        if (!(skuIn.getSLADuration() instanceof String)) {
+            System.out.println("SLADuration: " + skuIn.getSLADuration());
+            return false;
+        }
+        */
+
+        if (!(skuIn.getUnitCost() instanceof String)) {
+            System.out.println("UnitCost: " + skuIn.getUnitCost());
+            return false;
+        }
+        if (!(skuIn.getUnitPrice() instanceof String)) {
+            System.out.println("UnitPrice: " + skuIn.getUnitPrice());
+            return false;
+        }
 
         return true;
     }

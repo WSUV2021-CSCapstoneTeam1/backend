@@ -8,7 +8,7 @@ public class Sku {
     private String packageId;
     private String productId;
     private Boolean active;
-    private int maxItems;
+    private Integer maxItems;
     private String code;
     private String minSLA;
     private String description;
