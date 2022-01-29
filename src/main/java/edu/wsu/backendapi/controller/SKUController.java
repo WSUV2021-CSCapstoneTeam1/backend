@@ -1,17 +1,19 @@
 package edu.wsu.backendapi.controller;
 
-import edu.wsu.backendapi.dao.TemplateDao;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wsu.backendapi.model.Sku;
+import edu.wsu.backendapi.security.PreProcess;
 import edu.wsu.backendapi.service.SiteflowService;
 import org.apache.http.HttpResponse;
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.awt.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
 import static edu.wsu.backendapi.service.SiteflowService.printInfo;
 
@@ -25,31 +27,42 @@ public class SKUController {
         SiteflowService tempServ = new SiteflowService();
         try {
             HttpResponse output = tempServ.getAllSkus();
-            return printInfo(output,true);
+            return Response.ok(printInfo(output,true)).build();
         } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
+            return Response.status(400,"Error").build();
         }
-
-        JSONObject obj = new JSONObject();
-        obj.put("status", 400);
-        return obj.toString(4);
     }
 
     @POST
     @Path("/siteflow/post")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String templatePostDb(String jsonIn) {
-        SiteflowService tempServ = new SiteflowService();
+    public Response skuPostSiteflow(String jsonIn) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Sku skuSiteFlowPost;
         try {
-            HttpResponse output = tempServ.postSku(jsonIn);
-            return printInfo(output,true);
-        } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
+            skuSiteFlowPost = objectMapper.readValue(jsonIn, Sku.class);
+
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return Response.status(400,"JSON Mapping Error").build();
         }
 
-        JSONObject obj = new JSONObject();
-        obj.put("status", 400);
-        return obj.toString(4);
+        PreProcess preprocessInput = new PreProcess();
+
+        if (preprocessInput.PreProcessSku(skuSiteFlowPost)) {
+            SiteflowService tempServ = new SiteflowService();
+            try {
+                HttpResponse output = tempServ.postSku(jsonIn);
+                return Response.ok(printInfo(output, true)).build();
+            } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
+                e.printStackTrace();
+                return Response.status(400, "Error").build();
+            }
+        } else {
+            return Response.status(400,"Preprocessing Error").build();
+        }
     }
 }

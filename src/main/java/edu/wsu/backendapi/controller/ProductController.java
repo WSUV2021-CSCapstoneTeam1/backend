@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.awt.*;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -25,13 +26,10 @@ public class ProductController {
         SiteflowService tempServ = new SiteflowService();
         try {
             HttpResponse output = tempServ.getAllProducts();
-            return printInfo(output,true);
+            return Response.ok(printInfo(output,true)).build();
         } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
+            return Response.status(400,"Error").build();
         }
-
-        JSONObject obj = new JSONObject();
-        obj.put("status", 400);
-        return obj.toString(4);
     }
 }
