@@ -28,7 +28,13 @@ public class TemplateController {
         SiteflowService tempServ = new SiteflowService();
         try {
             HttpResponse output = tempServ.getAllTemplates();
-            return Response.ok(printInfo(output,true)).build();
+
+            if (output.getStatusLine().getStatusCode() == 200) {
+                return returnBody(output);
+            }
+
+            return returnMessage(output.getStatusLine().getStatusCode(), output.getStatusLine().getReasonPhrase());
+//            return Response.ok(printInfo(output,true)).build();
         } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
             return Response.status(400,"Error").build();
@@ -159,5 +165,13 @@ public class TemplateController {
         } else {
             return Response.status(400,"Preprocessing Error").build();
         }
+    }
+
+    private Response returnMessage(int statusCode, String statusPhrase) {
+        return Response.status(statusCode, statusPhrase).build();
+    }
+
+    private Response returnBody(HttpResponse output) throws IOException {
+        return Response.ok(printInfo(output,true)).build();
     }
 }
