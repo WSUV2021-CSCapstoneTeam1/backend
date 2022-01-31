@@ -24,12 +24,27 @@ public class ProductController {
     @Produces(MediaType.APPLICATION_JSON)
     public Object productSiteFlowGetAll() {
         SiteflowService tempServ = new SiteflowService();
+        HttpResponse output;
         try {
-            HttpResponse output = tempServ.getAllProducts();
-            return Response.ok(printInfo(output,true)).build();
+            output = tempServ.getAllProducts();
+//            return Response.ok(printInfo(output,true)).build();
+
+            if (output.getStatusLine().getStatusCode() == 200) {
+                return returnBody(output);
+            }
+            return returnMessage(output.getStatusLine().getStatusCode(), output.getStatusLine().getReasonPhrase());
         } catch (InvalidKeyException | NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
-            return Response.status(400,"Error").build();
+//            return Response.status(400,"Error").build();
+            return returnMessage(400, "Unknown Error");
         }
+    }
+
+    private Object returnMessage(int statusCode, String statusPhrase) {
+        return Response.status(statusCode, statusPhrase).build();
+    }
+
+    private Object returnBody(HttpResponse output) throws IOException {
+        return Response.ok(printInfo(output,true)).build();
     }
 }
