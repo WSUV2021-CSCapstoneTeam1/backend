@@ -9,14 +9,14 @@ public class GetDBCredentials {
     public GetDBCredentials() {
     }
 
-    public String[] getRDSCredentials() {
+    public String[] getRDSCredentials() throws Exception {
         //Get SiteFlow Key from AWS Secrets
-        String awsRDSHostName = awsCred.getSecret("RDSHostName");
+        String awsRDSHostName = awsCred.getSecret("RDSHostName", null);
         JSONObject secretRDSHostNameObj = new JSONObject(awsRDSHostName);
         String hostName = secretRDSHostNameObj.getString("RDS_HOSTNAME");
 
         //Get SiteFlow Secret from AWS Secrets
-        String awsRDSPassword = awsCred.getSecret("RDSPassword");
+        String awsRDSPassword = awsCred.getSecret("RDSPassword", null);
         JSONObject secretsRDSPasswordObj = new JSONObject(awsRDSPassword);
         String password = secretsRDSPasswordObj.getString("RDS_PASSWORD");
 

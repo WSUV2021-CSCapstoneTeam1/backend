@@ -14,14 +14,14 @@ public class GetSFCredentials {
     public GetSFCredentials() {
     }
 
-    public String[] getSiteFlowCredentials() {
+    public String[] getSiteFlowCredentials(String organization) throws Exception {
         //Get SiteFlow Key from AWS Secrets
-        String awsSFKey = awsCred.getSecret("SFkey");
+        String awsSFKey = awsCred.getSecret("SFkey", organization);
         JSONObject secretSFKeyObj = new JSONObject(awsSFKey);
         String key = secretSFKeyObj.getString("SF_KEY");
 
         //Get SiteFlow Secret from AWS Secrets
-        String awsSFSecret = awsCred.getSecret("SFsecret");
+        String awsSFSecret = awsCred.getSecret("SFsecret", organization);
         JSONObject secretsSFSecretObj = new JSONObject(awsSFSecret);
         String secret = secretsSFSecretObj.getString("SF_SECRET");
 
