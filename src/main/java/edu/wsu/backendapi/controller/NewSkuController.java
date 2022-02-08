@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 
-@Path("/skuV2")
+@Path("/sku")
 public class NewSkuController extends Controller {
 
     @GET

@@ -6,7 +6,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/teamV2")
+@Path("/team")
 public class TeamController extends Controller {
 
     @GET

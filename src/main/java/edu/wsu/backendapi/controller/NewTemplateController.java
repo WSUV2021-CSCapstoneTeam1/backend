@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 
-@Path("/templateV2")
+@Path("/template")
 public class NewTemplateController extends Controller {
 
     @GET

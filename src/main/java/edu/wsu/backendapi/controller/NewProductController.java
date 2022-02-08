@@ -10,7 +10,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("productV2")
+@Path("product")
 public class NewProductController extends Controller {
 
     @GET
