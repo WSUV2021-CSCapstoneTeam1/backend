@@ -9,14 +9,32 @@ import java.util.Base64;
 public class AwssecretCredential {
 // https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-samples.html#prerequisites
 
-    public static String getSecret(String passSecret) {
+    public static String getSecret(String passSecret, String organization) throws Exception {
 
         String input;
 
         if (passSecret.equals("SFkey")) {
-            input = System.getenv("AWS_SECRET_SITEFLOW_KEY_SECRETNAME");
+            switch (organization) {
+                case "wsu-test-team-1":
+                    input = System.getenv("AWS_SECRET_SITEFLOW_KEY_SECRETNAME_TEAM_1");
+                    break;
+                case "wsu-test-team-8":
+                    input = System.getenv("AWS_SECRET_SITEFLOW_KEY_SECRETNAME_TEAM_8");
+                    break;
+                default:
+                    throw new Exception();
+            }
         } else if (passSecret.equals("SFsecret")) {
-            input = System.getenv("AWS_SECRET_SITEFLOW_SECRET_SECRETNAME");
+            switch (organization) {
+                case "wsu-test-team-1":
+                    input = System.getenv("AWS_SECRET_SITEFLOW_SECRET_SECRETNAME_TEAM_1");
+                    break;
+                case "wsu-test-team-8":
+                    input = System.getenv("AWS_SECRET_SITEFLOW_SECRET_SECRETNAME_TEAM_8");
+                    break;
+                default:
+                    throw new Exception();
+            }
         } else if (passSecret.equals("RDSHostName")) {
             input = System.getenv("AWS_SECRET_RDS_HOSTNAME_SECRETNAME");
         } else if (passSecret.equals("RDSPassword")) {
