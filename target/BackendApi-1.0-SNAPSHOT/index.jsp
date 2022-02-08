@@ -264,7 +264,7 @@
 
         <li>
           <input id="sub-group-2-team" type="checkbox" hidden />
-          <label for="sub-group-2-team"><span class="fa fa-angle-right"></span> TEAM</label>
+          <label for="sub-group-2-team"><span class="fa fa-angle-right"></span> Team</label>
           <ul class="sub-group-list">
             <!---
             <li>
@@ -428,7 +428,7 @@
 
         <li>
           <input id="sub-group-2" type="checkbox" hidden />
-          <label for="sub-group-2"><span class="fa fa-angle-right"></span> Templates</label>
+          <label for="sub-group-2"><span class="fa fa-angle-right"></span> Template</label>
           <ul class="sub-group-list">
             <li>
               <input id="sub-group-2-1" type="checkbox" hidden />
@@ -533,14 +533,14 @@
                 </li>
                 <li>
                   <input id="sub-group-2-2-4" type="checkbox" hidden />
-                  <label for="sub-group-2-2-4"><span class="fa fa-angle-right"></span> POST - api/template/rds/update?id=[integer] </label>
+                  <label for="sub-group-2-2-4"><span class="fa fa-angle-right"></span> PUT - api/template/rds/update?id=[integer] </label>
                   <ul class="sub-group-list">
                     <li>
                       <br/>
 
                       <table class="api-doc-table">
                         <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/update?id=[integer]</td></tr>
-                        <tr><td class="api-doc-field-name">Method</td><td>POST</td></tr>
+                        <tr><td class="api-doc-field-name">Method</td><td>PUT</td></tr>
                         <tr><td class="api-doc-field-name">Postbacks</td><td>200 OK</td></tr>
                         <tr><td class="api-doc-field-name">Input</td><td>JSON Object</td></tr>
                         <tr><td class="api-doc-field-name">Input Format</td><td><img src="img/doc-template-rds-post-json.png" /></td></tr>

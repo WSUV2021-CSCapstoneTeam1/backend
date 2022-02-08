@@ -7,7 +7,7 @@ import javax.ws.rs.core.HttpHeaders;
 import java.util.HashMap;
 
 public class RdsService {
-
+//test add
     public String getAllTeams(HttpHeaders headers) throws Exception {
         TeamDao teamDao = new TeamDao();
         String output = teamDao.getAll();
