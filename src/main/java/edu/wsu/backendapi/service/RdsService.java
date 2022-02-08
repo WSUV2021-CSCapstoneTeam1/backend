@@ -1,11 +1,18 @@
 package edu.wsu.backendapi.service;
 
 import edu.wsu.backendapi.dao.NewTemplateDao;
+import edu.wsu.backendapi.dao.TeamDao;
 
 import javax.ws.rs.core.HttpHeaders;
 import java.util.HashMap;
 
 public class RdsService {
+
+    public String getAllTeams(HttpHeaders headers) throws Exception {
+        TeamDao teamDao = new TeamDao();
+        String output = teamDao.getAll();
+        return output;
+    }
 
     public String getAllTemplates(HttpHeaders headers) throws Exception {
         NewTemplateDao templateDao = new NewTemplateDao();
