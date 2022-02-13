@@ -5,98 +5,98 @@ import edu.wsu.backendapi.model.Template;
 public class PreProcess {
     public PreProcess() {}
 
-    public Boolean PreProcessTemplate(Template tempIn) {
+    public static Boolean PreProcessTemplate(Template tempIn) throws Exception {
         if (!(tempIn.getAccountId() instanceof String)) {
             System.out.println("AccountID: " + tempIn.getAccountId());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getName() instanceof String)) {
             System.out.println("Name: " + tempIn.getName());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getActive() instanceof Boolean)) {
             System.out.println("Active: " + tempIn.getActive());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getGlobalRead() instanceof Boolean)) {
             System.out.println("Global Read: " + tempIn.getGlobalRead());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getGlobalResourceName() instanceof String)) {
             System.out.println("Global Resource Name: " + tempIn.getGlobalResourceName());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getText() instanceof String)) {
             System.out.println("text: " + tempIn.getText());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getExtension() instanceof String)) {
             System.out.println("Extension: " + tempIn.getExtension());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getContentType() instanceof String)) {
             System.out.println("Content Type: " + tempIn.getContentType());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getLookup() instanceof String)) {
             System.out.println("Lookup: " + tempIn.getLookup());
-            return false;
+            throw new Exception();
         }
         if (!(tempIn.getType() instanceof String)) {
             System.out.println("Type: " + tempIn.getType());
-            return false;
+            throw new Exception();
         }
 
         return true;
     }
 
-    public Boolean PreProcessSku(Sku skuIn) {
+    public static Boolean PreProcessSku(Sku skuIn) throws Exception {
         if (!(skuIn.getPackageId() == null)) {
             System.out.println("PackageID: " + skuIn.getPackageId());
-            return false;
+            throw new Exception();
         }
         if (!(skuIn.getProductId() instanceof String)) {
             System.out.println("ProductId: " + skuIn.getProductId());
-            return false;
+            throw new Exception();
         }
         if (!(skuIn.getActive() instanceof Boolean)) {
             System.out.println("Active: " + skuIn.getActive());
-            return false;
+            throw new Exception();
         }
 
         try{
             Integer.parseInt(skuIn.getMinSLA());
         }catch(Exception e ){
             System.out.println("MaxItems: " + skuIn.getMaxItems());
-            return false;
+            throw new Exception();
         }
 
         if (!(skuIn.getCode() instanceof String)) {
             System.out.println("Code: " + skuIn.getCode());
-            return false;
+            throw new Exception();
         }
         if (!(skuIn.getMinSLA() instanceof String)) {
             System.out.println("minSLA: " + skuIn.getMinSLA());
-            return false;
+            throw new Exception();
         }
         if (!(skuIn.getDescription() instanceof String)) {
             System.out.println("Description: " + skuIn.getDescription());
-            return false;
+            throw new Exception();
         }
         /*
         if (!(skuIn.getSLADuration() instanceof String)) {
             System.out.println("SLADuration: " + skuIn.getSLADuration());
-            return false;
+            throw new Exception();
         }
         */
 
         if (!(skuIn.getUnitCost() instanceof String)) {
             System.out.println("UnitCost: " + skuIn.getUnitCost());
-            return false;
+            throw new Exception();
         }
         if (!(skuIn.getUnitPrice() instanceof String)) {
             System.out.println("UnitPrice: " + skuIn.getUnitPrice());
-            return false;
+            throw new Exception();
         }
 
         return true;

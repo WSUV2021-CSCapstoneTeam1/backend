@@ -8,6 +8,7 @@ import org.apache.http.ParseException;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -16,33 +17,33 @@ public class SiteflowService {
 
     public SiteflowService() {}
 
-    public HttpResponse getAllTemplates() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-        SiteFlow siteFlow = getSiteFlow();
+    public String getAllTemplates(HttpHeaders headers) throws Exception {
+        SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetAllTemplates();
-        return info;
+        return printInfo(info,true);
     }
 
-    public HttpResponse getAllSkus() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-        SiteFlow siteFlow = getSiteFlow();
+    public String getAllSkus(HttpHeaders headers) throws Exception {
+        SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetSkus();
-        return info;
+        return printInfo(info,true);
     }
 
-    public HttpResponse postSku(String sku) throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-        SiteFlow siteFlow = getSiteFlow();
+    public String postSku(String sku, HttpHeaders headers) throws Exception {
+        SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.PostSku(sku);
-        return info;
+        return printInfo(info,true);
     }
 
-    public HttpResponse getAllProducts() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-        SiteFlow siteFlow = getSiteFlow();
+    public String getAllProducts(HttpHeaders headers) throws Exception {
+        SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetProducts();
-        return info;
+        return printInfo(info,true);
     }
 
-    private SiteFlow getSiteFlow() {
+    private SiteFlow getSiteFlow(String organization) throws Exception {
         GetSFCredentials sfCreds = new GetSFCredentials();
-        String[] cred = sfCreds.getSiteFlowCredentials();
+        String[] cred = sfCreds.getSiteFlowCredentials(organization);
         String key = cred[0];
         String secret = cred[1];
         String algorithm = cred[2];
@@ -72,5 +73,9 @@ public class SiteflowService {
             System.out.println(body);
             return body;
         }
+    }
+
+    private String getOrganization(HttpHeaders headers) throws IndexOutOfBoundsException {
+        return headers.getRequestHeader("siteflow-organization").get(0);
     }
 }
