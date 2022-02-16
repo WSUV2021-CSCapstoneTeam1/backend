@@ -1,5 +1,7 @@
 package edu.wsu.backendapi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wsu.backendapi.model.Sku;
 import edu.wsu.backendapi.siteflow.GetSFCredentials;
 import edu.wsu.backendapi.siteflow.SiteFlow;
 import org.apache.http.HttpEntity;
@@ -12,6 +14,7 @@ import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 public class SiteflowService {
 
@@ -29,7 +32,9 @@ public class SiteflowService {
         return printInfo(info,true);
     }
 
-    public String postSku(String sku, HttpHeaders headers) throws Exception {
+    public String postSku(HashMap<String,Object> input, HttpHeaders headers) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String sku = objectMapper.writeValueAsString(input.get("body"));
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.PostSku(sku);
         return printInfo(info,true);

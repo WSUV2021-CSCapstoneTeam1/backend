@@ -21,10 +21,11 @@ public class TemplateDao {
     public TemplateDao() {}
 
     public String post(HashMap<String,Object> input) throws Exception {
-        Template template;
-        ObjectMapper objectMapper = new ObjectMapper();
-        template = objectMapper.readValue((String) input.get("body"), Template.class);
-        PreProcess.PreProcessTemplate(template);
+        //Template template;
+        //ObjectMapper objectMapper = new ObjectMapper();
+        //template = objectMapper.readValue((String) input.get("body"), Template.class);
+        //PreProcess.PreProcessTemplate(template);
+        Template template = (Template) input.get("body");
         DBConn conn = new DBConn();
 
         PreparedStatement stmt = conn.makeConnection().prepareStatement("INSERT INTO template (" +
@@ -51,11 +52,12 @@ public class TemplateDao {
     }
 
     public String update(HashMap<String,Object> input) throws Exception {
-        Template template;
+        //Template template;
         Integer id = (Integer) input.get("id");
-        ObjectMapper objectMapper = new ObjectMapper();
-        template = objectMapper.readValue((String) input.get("body"), Template.class);
-        PreProcess.PreProcessTemplate(template);
+        //ObjectMapper objectMapper = new ObjectMapper();
+        //template = objectMapper.readValue((String) input.get("body"), Template.class);
+        //PreProcess.PreProcessTemplate(template);
+        Template template = (Template) input.get("body");
         DBConn conn = new DBConn();
 
         PreparedStatement stmt = conn.makeConnection().prepareStatement("UPDATE template SET " +

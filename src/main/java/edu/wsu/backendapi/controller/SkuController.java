@@ -1,5 +1,10 @@
 package edu.wsu.backendapi.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wsu.backendapi.model.Sku;
+import edu.wsu.backendapi.model.Template;
+import edu.wsu.backendapi.security.PreProcess;
 import edu.wsu.backendapi.service.SiteflowService;
 import edu.wsu.backendapi.service.RdsService;
 
@@ -25,10 +30,13 @@ public class SkuController extends Controller {
     @Path("/siteflow/post")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postSku(@Context HttpHeaders headers, String body) throws NoSuchMethodException, IllegalAccessException {
-        RdsService rdsService = new RdsService();
+    public Response postSku(@Context HttpHeaders headers, String body) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Sku sku = objectMapper.readValue(body, Sku.class);
+        PreProcess.PreProcessSku(sku);
+        SiteflowService siteflowService = new SiteflowService();
         HashMap<String,Object> input = new HashMap<>();
-        input.put("body", input);
-        return makeRequest("postSku", rdsService, input, 201, headers);
+        input.put("body", sku);
+        return makeRequest("postSku", siteflowService, input, 201, headers);
     }
 }

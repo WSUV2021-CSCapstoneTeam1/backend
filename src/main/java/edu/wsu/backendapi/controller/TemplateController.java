@@ -1,5 +1,9 @@
 package edu.wsu.backendapi.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wsu.backendapi.model.Template;
+import edu.wsu.backendapi.security.PreProcess;
 import edu.wsu.backendapi.service.SiteflowService;
 import edu.wsu.backendapi.service.RdsService;
 
@@ -25,9 +29,12 @@ public class TemplateController extends Controller {
     @Path("rds/post")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postRds(String body) throws NoSuchMethodException, IllegalAccessException {
+    public Response postRds(String body) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Template template = objectMapper.readValue(body, Template.class);
+        PreProcess.PreProcessTemplate(template);
         HashMap<String,Object> input = new HashMap<>();
-        input.put("body",body);
+        input.put("body",template);
         RdsService rdsService = new RdsService();
         return makeRequest("postTemplate", rdsService, input, 201, null);
     }
@@ -64,11 +71,14 @@ public class TemplateController extends Controller {
     @Path("rds/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@QueryParam("id") Integer id, String body) throws NoSuchMethodException, IllegalAccessException {
+    public Response update(@QueryParam("id") Integer id, String body) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Template template = objectMapper.readValue(body, Template.class);
+        PreProcess.PreProcessTemplate(template);
         RdsService rdsService = new RdsService();
         HashMap<String,Object> input = new HashMap<>();
         input.put("id", id);
-        input.put("body", body);
+        input.put("body", template);
         return makeRequest("updateTemplateById", rdsService, input, 200,null);
     }
 }
