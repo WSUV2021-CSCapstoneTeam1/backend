@@ -129,6 +129,29 @@
                     </li>
                   </ul>
                 </li>
+                <li>
+                  <input id="sub-group-2-4-3" type="checkbox" hidden />
+                  <label for="sub-group-2-4-3"><span class="fa fa-angle-right"></span> POST - api/sku/siteflow/post </label>
+                  <ul class="sub-group-list">
+                    <li>
+                      <br/>
+
+                      <table class="api-doc-table">
+                        <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/sku/siteflow/post</td></tr>
+                        <tr><td class="api-doc-field-name">Method</td><td>POST</td></tr>
+                        <tr><td class="api-doc-field-name">Postbacks</td><td>201 OK</td></tr>
+                        <tr><td class="api-doc-field-name">Input</td><td>JSON Object</td></tr>
+                        <tr><td class="api-doc-field-name">Input Format</td><td><img src="img/doc-sku-siteflow-post-json.png" /></td></tr>
+                      </table>
+
+                      <table class="postman-example">
+                        <tr><td class="api-doc-field-postman-title">POSTMAN EXAMPLE</td><td class="api-doc-field-postman-postback">201 OK</td></tr>
+                        <tr><td></td>><td class="api-doc-field-image"><img src="img/doc-sku-siteflow-post.png" /></td></tr>
+                      </table>
+
+                    </li>
+                  </ul>
+                </li>
               </ul>
             </li>
             <!---
@@ -204,29 +227,8 @@
                     </li>
                   </ul>
                 </li>
-                <li>
-                  <input id="sub-group-2-2-4" type="checkbox" hidden />
-                  <label for="sub-group-2-2-4"><span class="fa fa-angle-right"></span> POST - api/template/rds/update?id=[integer] </label>
-                  <ul class="sub-group-list">
-                    <li>
-                      <br/>
-
-                      <table class="api-doc-table">
-                        <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/update?id=[integer]</td></tr>
-                        <tr><td class="api-doc-field-name">Method</td><td>POST</td></tr>
-                        <tr><td class="api-doc-field-name">Postbacks</td><td>200 OK</td></tr>
-                        <tr><td class="api-doc-field-name">Input</td><td>JSON Object</td></tr>
-                        <tr><td class="api-doc-field-name">Input Format</td><td><img src="img/doc-template-rds-post-json.png" /></td></tr>
-                      </table>
-
-                      <table class="postman-example">
-                        <tr><td class="api-doc-field-postman-title">POSTMAN EXAMPLE</td><td class="api-doc-field-postman-postback">200 OK</td></tr>
-                        <tr><td></td>><td class="api-doc-field-image"><img src="img/doc-template-rds-update-by-id.png" /></td></tr>
-                      </table>
-
-                    </li>
-                  </ul>
-                </li>
+                --->
+            <!---
                 <li>
                   <input id="sub-group-2-2-5" type="checkbox" hidden />
                   <label for="sub-group-2-2-5"><span class="fa fa-angle-right"></span> DELETE - api/template/rds/delete?id=[integer] </label>
@@ -264,7 +266,7 @@
 
         <li>
           <input id="sub-group-2-team" type="checkbox" hidden />
-          <label for="sub-group-2-team"><span class="fa fa-angle-right"></span> TEAM</label>
+          <label for="sub-group-2-team"><span class="fa fa-angle-right"></span> Team</label>
           <ul class="sub-group-list">
             <!---
             <li>
@@ -316,7 +318,7 @@
 
                       <table class="postman-example">
                         <tr><td class="api-doc-field-postman-title">POSTMAN EXAMPLE</td><td class="api-doc-field-postman-postback">200 OK</td></tr>
-                        <tr><td></td>><td class="api-doc-field-image"><img src="img/doc-template-rds-get-all.png" /></td></tr>
+                        <tr><td></td>><td class="api-doc-field-image"><img src="img/doc-team-rds-get-all.png" /></td></tr>
                       </table>
 
                     </li>
@@ -428,7 +430,7 @@
 
         <li>
           <input id="sub-group-2" type="checkbox" hidden />
-          <label for="sub-group-2"><span class="fa fa-angle-right"></span> Templates</label>
+          <label for="sub-group-2"><span class="fa fa-angle-right"></span> Template</label>
           <ul class="sub-group-list">
             <li>
               <input id="sub-group-2-1" type="checkbox" hidden />
@@ -533,14 +535,14 @@
                 </li>
                 <li>
                   <input id="sub-group-2-2-4" type="checkbox" hidden />
-                  <label for="sub-group-2-2-4"><span class="fa fa-angle-right"></span> POST - api/template/rds/update?id=[integer] </label>
+                  <label for="sub-group-2-2-4"><span class="fa fa-angle-right"></span> PUT - api/template/rds/update?id=[integer] </label>
                   <ul class="sub-group-list">
                     <li>
                       <br/>
 
                       <table class="api-doc-table">
                         <tr><td class="api-doc-field-name">Endpoint URL</td><td>api/template/rds/update?id=[integer]</td></tr>
-                        <tr><td class="api-doc-field-name">Method</td><td>POST</td></tr>
+                        <tr><td class="api-doc-field-name">Method</td><td>PUT</td></tr>
                         <tr><td class="api-doc-field-name">Postbacks</td><td>200 OK</td></tr>
                         <tr><td class="api-doc-field-name">Input</td><td>JSON Object</td></tr>
                         <tr><td class="api-doc-field-name">Input Format</td><td><img src="img/doc-template-rds-post-json.png" /></td></tr>
