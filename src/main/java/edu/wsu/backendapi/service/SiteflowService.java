@@ -46,6 +46,24 @@ public class SiteflowService {
         return printInfo(info,true);
     }
 
+    public String getAllOrders(HttpHeaders headers) throws Exception {
+        SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
+        HttpResponse info = siteFlow.GetAllOrders();
+        return printInfo(info,true);
+    }
+
+    public String getOrder(HashMap<String, Object> input, HttpHeaders headers) throws Exception {
+        SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
+        HttpResponse info = siteFlow.GetOrder(String.valueOf(input.get("id")));
+        return printInfo(info,true);
+    }
+
+    public String postOrder(HashMap<String,Object> input, HttpHeaders headers) throws Exception {
+        SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
+        HttpResponse info = siteFlow.PostOrder(String.valueOf(input.get("body")));
+        return printInfo(info,true);
+    }
+
     private SiteFlow getSiteFlow(String organization) throws Exception {
         GetSFCredentials sfCreds = new GetSFCredentials();
         String[] cred = sfCreds.getSiteFlowCredentials(organization);

@@ -5,6 +5,7 @@ package edu.wsu.backendapi.siteflow;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -57,6 +58,30 @@ public class SiteFlow {
         return client.execute(request);
     }
 
+    public HttpResponse GetOrder(String id) throws InvalidKeyException, NoSuchAlgorithmException, IOException {
+        String path = "/api/order/details/";
+        path = path + id;
+        //System.out.println("path sent to siteflow: " + path);
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet request = new HttpGet(baseUrl + path);
+
+        addHeaders(request, "GET", path);
+
+        System.out.println("Getting order");
+        return client.execute(request);
+    }
+
+    public HttpResponse PostOrder(String order) throws InvalidKeyException, NoSuchAlgorithmException, IOException {
+        String path = "/api/order";
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost request = new HttpPost(baseUrl + path);
+
+        addHeaders(request, "POST", path);
+        request.setEntity(new StringEntity(order, "UTF-8"));
+
+        System.out.println("Submitting Order");
+        return client.execute(request);
+    }
 
     /**
      * Gets a list of all templates in Site Flow
