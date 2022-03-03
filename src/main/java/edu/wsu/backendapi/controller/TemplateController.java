@@ -31,6 +31,7 @@ public class TemplateController extends Controller {
     @Produces(MediaType.APPLICATION_JSON)
     public Response postRds(String body) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println("User Input:" + body);
         Template template = objectMapper.readValue(body, Template.class);
         PreProcess.PreProcessTemplate(template);
         HashMap<String,Object> input = new HashMap<>();

@@ -1,6 +1,7 @@
 package edu.wsu.backendapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wsu.backendapi.model.Order;
 import edu.wsu.backendapi.model.Sku;
 import edu.wsu.backendapi.security.PreProcess;
 import edu.wsu.backendapi.service.RdsService;
@@ -43,12 +44,13 @@ public class OrderController extends Controller {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postOrder(@Context HttpHeaders headers, String body) throws Exception {
-        //ObjectMapper objectMapper = new ObjectMapper();
-        //Sku sku = objectMapper.readValue(body, Sku.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Order order = objectMapper.readValue(body, Order.class);
+        order.setDestinationName(headers.getHeaderString("siteflow-organization"));
         //PreProcess.PreProcessSku(sku);
         SiteflowService siteflowService = new SiteflowService();
         HashMap<String,Object> input = new HashMap<>();
-        input.put("body", body);
+        input.put("body", order);
         return makeRequest("postOrder", siteflowService, input, 201, headers);
     }
 
