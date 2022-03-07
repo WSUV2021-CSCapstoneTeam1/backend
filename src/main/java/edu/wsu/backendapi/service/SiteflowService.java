@@ -59,8 +59,10 @@ public class SiteflowService {
     }
 
     public String postOrder(HashMap<String,Object> input, HttpHeaders headers) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String order = objectMapper.writeValueAsString(input.get("body"));
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
-        HttpResponse info = siteFlow.PostOrder(String.valueOf(input.get("body")));
+        HttpResponse info = siteFlow.PostOrder(order);
         return printInfo(info,true);
     }
 
