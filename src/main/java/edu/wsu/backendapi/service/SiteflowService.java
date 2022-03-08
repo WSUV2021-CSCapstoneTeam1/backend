@@ -1,6 +1,7 @@
 package edu.wsu.backendapi.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wsu.backendapi.exceptions.BadRequestException;
 import edu.wsu.backendapi.model.Sku;
 import edu.wsu.backendapi.siteflow.GetSFCredentials;
 import edu.wsu.backendapi.siteflow.SiteFlow;
@@ -64,7 +65,7 @@ public class SiteflowService {
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.PostOrder(order);
         if (info.getStatusLine().getStatusCode() != 201) {
-            throw new Exception();
+            throw new BadRequestException(printInfo(info, true), info.getStatusLine().getStatusCode());
         }
         return printInfo(info,true);
     }

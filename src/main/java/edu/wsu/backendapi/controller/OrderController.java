@@ -1,6 +1,8 @@
 package edu.wsu.backendapi.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.wsu.backendapi.exceptions.BadRequestException;
 import edu.wsu.backendapi.model.Order;
 import edu.wsu.backendapi.model.Sku;
 import edu.wsu.backendapi.security.PreProcess;
@@ -43,7 +45,7 @@ public class OrderController extends Controller {
     @Path("/siteflow/post")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postOrder(@Context HttpHeaders headers, String body) throws Exception {
+    public Response postOrder(@Context HttpHeaders headers, String body) throws JsonProcessingException, NoSuchMethodException {
         ObjectMapper objectMapper = new ObjectMapper();
         Order order = objectMapper.readValue(body, Order.class);
         order.setDestinationName(headers.getHeaderString("siteflow-organization"));
