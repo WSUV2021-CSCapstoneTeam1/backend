@@ -63,6 +63,9 @@ public class SiteflowService {
         String order = objectMapper.writeValueAsString(input.get("body"));
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.PostOrder(order);
+        if (info.getStatusLine().getStatusCode() != 201) {
+            throw new Exception();
+        }
         return printInfo(info,true);
     }
 
