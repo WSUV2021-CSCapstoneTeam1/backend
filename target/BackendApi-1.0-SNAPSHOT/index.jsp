@@ -14,7 +14,7 @@
 </head>
 <body>
 <h3>cs420 Capstone - Backend API Documentation</h3>
-<p>Base URL: <a href="/BackendApi-1.0-SNAPSHOT/">http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/</a></p>
+<p>Base URL: <a href="/BackendApi-1.0-SNAPSHOT/">https://hp.wsuv-cs-project.com:8443/BackendApi-1.0-SNAPSHOT/</a></p>
 <p>SiteFlow API link: <a href="https://docs.oneflowcloud.com/api-reference/siteflow/" target="_blank">https://docs.oneflowcloud.com/api-reference/siteflow/</a></p>
 <nav class="nav" role="navigation">
   <ul class="nav__list">

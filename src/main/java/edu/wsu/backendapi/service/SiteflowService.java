@@ -24,12 +24,18 @@ public class SiteflowService {
     public String getAllTemplates(HttpHeaders headers) throws Exception {
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetAllTemplates();
+        if (info.getStatusLine().getStatusCode() != 200) {
+            throw new BadRequestException(printInfo(info, true), info.getStatusLine().getStatusCode());
+        }
         return printInfo(info,true);
     }
 
     public String getAllSkus(HttpHeaders headers) throws Exception {
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetSkus();
+        if (info.getStatusLine().getStatusCode() != 200) {
+            throw new BadRequestException(printInfo(info, true), info.getStatusLine().getStatusCode());
+        }
         return printInfo(info,true);
     }
 
@@ -38,24 +44,36 @@ public class SiteflowService {
         String sku = objectMapper.writeValueAsString(input.get("body"));
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.PostSku(sku);
+        if (info.getStatusLine().getStatusCode() != 200) {
+            throw new BadRequestException(printInfo(info, true), info.getStatusLine().getStatusCode());
+        }
         return printInfo(info,true);
     }
 
     public String getAllProducts(HttpHeaders headers) throws Exception {
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetProducts();
+        if (info.getStatusLine().getStatusCode() != 200) {
+            throw new BadRequestException(printInfo(info, true), info.getStatusLine().getStatusCode());
+        }
         return printInfo(info,true);
     }
 
     public String getAllOrders(HttpHeaders headers) throws Exception {
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetAllOrders();
+        if (info.getStatusLine().getStatusCode() != 200) {
+            throw new BadRequestException(printInfo(info, true), info.getStatusLine().getStatusCode());
+        }
         return printInfo(info,true);
     }
 
     public String getOrder(HashMap<String, Object> input, HttpHeaders headers) throws Exception {
         SiteFlow siteFlow = getSiteFlow(getOrganization(headers));
         HttpResponse info = siteFlow.GetOrder(String.valueOf(input.get("id")));
+        if (info.getStatusLine().getStatusCode() != 200) {
+            throw new BadRequestException(printInfo(info, true), info.getStatusLine().getStatusCode());
+        }
         return printInfo(info,true);
     }
 
